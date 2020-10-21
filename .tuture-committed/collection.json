@@ -3253,6 +3253,631 @@
           ]
         }
       ]
+    },
+    {
+      "commit": "a7fa82727c594ac36d8b7df70c26b569234bd572",
+      "id": "47dda9a5",
+      "articleId": "8a528e68",
+      "type": "step",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "a7fa82727c594ac36d8b7df70c26b569234bd572",
+          "id": "3683f936",
+          "fixed": true,
+          "children": [
+            {
+              "text": "完成 API 路由"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "路由是 Express 的关键组成部分，也是客户端与服务器进行交互的入口，在 Express 路由中接受两个参数：Request 和 Response，一个用来获取客户端的请求，一个用来发送给客户端服务器的响应。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-backend/app.js",
+          "display": true,
+          "commit": "a7fa82727c594ac36d8b7df70c26b569234bd572",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "打开 "
+                    },
+                    {
+                      "text": "app.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，加入如下代码："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-backend/app.js",
+              "commit": "a7fa82727c594ac36d8b7df70c26b569234bd572",
+              "hiddenLines": [
+                [
+                  0,
+                  5
+                ],
+                [
+                  13,
+                  37
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "可以看到，我们导入了 "
+                    },
+                    {
+                      "text": "api",
+                      "code": true
+                    },
+                    {
+                      "text": " 路由，并定义了访问路径 "
+                    },
+                    {
+                      "text": "/api/v1",
+                      "code": true
+                    },
+                    {
+                      "text": "。所有访问 "
+                    },
+                    {
+                      "text": "/api/v1",
+                      "code": true
+                    },
+                    {
+                      "text": " 及其子路径如 "
+                    },
+                    {
+                      "text": "/api/v1/xxx",
+                      "code": true
+                    },
+                    {
+                      "text": " 都会激活 "
+                    },
+                    {
+                      "text": "api",
+                      "code": true
+                    },
+                    {
+                      "text": " 处理函数，在经典的 MVC 设计模式中，"
+                    },
+                    {
+                      "text": "api",
+                      "code": true
+                    },
+                    {
+                      "text": " 也被成为 "
+                    },
+                    {
+                      "text": "Controllers",
+                      "bold": true
+                    },
+                    {
+                      "text": " 。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-backend/routes/api/index.js",
+          "display": true,
+          "commit": "a7fa82727c594ac36d8b7df70c26b569234bd572",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "接着我们编写 "
+                    },
+                    {
+                      "text": "api",
+                      "code": true
+                    },
+                    {
+                      "text": " Controllers，在这里面定义操作商品和制造商的路由接口，这里我们将采用经典的 "
+                    },
+                    {
+                      "text": "RESTful API ",
+                      "link": true,
+                      "url": "http://www.ruanyifeng.com/blog/2018/10/restful-api-best-practices.html"
+                    },
+                    {
+                      "text": "来编写我们的路由接口："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-backend/routes/api/index.js",
+              "commit": "a7fa82727c594ac36d8b7df70c26b569234bd572",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "可以看到，我们将 "
+                    },
+                    {
+                      "text": "index",
+                      "code": true
+                    },
+                    {
+                      "text": " Controller 里面导入了我们的 "
+                    },
+                    {
+                      "text": "productController",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "manufacturerController",
+                      "code": true
+                    },
+                    {
+                      "text": " 。然后定义了一系列路由。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "这里操作 "
+                    },
+                    {
+                      "text": "manufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " 的前五个路由的功能如下："
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "parent": "bulleted-list",
+                      "children": [
+                        {
+                          "text": "GET /manufacturers",
+                          "code": true
+                        },
+                        {
+                          "text": " 获取所以的制造商（manufacturers）。"
+                        }
+                      ],
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "parent": "bulleted-list",
+                      "children": [
+                        {
+                          "text": "GET /manufacturers/:id",
+                          "code": true
+                        },
+                        {
+                          "text": " 获取单个制造商，这里 "
+                        },
+                        {
+                          "text": ":id",
+                          "code": true
+                        },
+                        {
+                          "text": " 代表动态路由，用于匹配任意字符串："
+                        },
+                        {
+                          "text": "/manufacturers/<any-string>",
+                          "code": true
+                        },
+                        {
+                          "text": "。"
+                        }
+                      ],
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "parent": "bulleted-list",
+                      "children": [
+                        {
+                          "text": "POST /manufacturers",
+                          "code": true
+                        },
+                        {
+                          "text": " 用户创建单个制造商。"
+                        }
+                      ],
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "parent": "bulleted-list",
+                      "children": [
+                        {
+                          "text": "PUT /manufacturers/:id",
+                          "code": true
+                        },
+                        {
+                          "text": " 用于修改单个制造商。"
+                        }
+                      ],
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "parent": "bulleted-list",
+                      "children": [
+                        {
+                          "text": "DELETE /manufacturers/:id",
+                          "code": true
+                        },
+                        {
+                          "text": " 用于删除单个制造商。"
+                        }
+                      ],
+                      "level": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "对应的 "
+                    },
+                    {
+                      "text": "product",
+                      "code": true
+                    },
+                    {
+                      "text": " 的五个路由功能如下："
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "parent": "bulleted-list",
+                      "children": [
+                        {
+                          "text": "GET /products",
+                          "code": true
+                        },
+                        {
+                          "text": " 获取所以的产商品（products）。"
+                        }
+                      ],
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "parent": "bulleted-list",
+                      "children": [
+                        {
+                          "text": "GET /products/:id",
+                          "code": true
+                        },
+                        {
+                          "text": " 获取单个商品，这里 "
+                        },
+                        {
+                          "text": ":id",
+                          "code": true
+                        },
+                        {
+                          "text": " 代表动态路由，用于匹配任意字符串："
+                        },
+                        {
+                          "text": "/products/<any-string>",
+                          "code": true
+                        },
+                        {
+                          "text": "。"
+                        }
+                      ],
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "parent": "bulleted-list",
+                      "children": [
+                        {
+                          "text": "POST /products",
+                          "code": true
+                        },
+                        {
+                          "text": " 用户创建单个商品。"
+                        }
+                      ],
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "parent": "bulleted-list",
+                      "children": [
+                        {
+                          "text": "PUT /products/:id",
+                          "code": true
+                        },
+                        {
+                          "text": " 用于修改单个商品。"
+                        }
+                      ],
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "parent": "bulleted-list",
+                      "children": [
+                        {
+                          "text": "DELETE /products/:id",
+                          "code": true
+                        },
+                        {
+                          "text": " 用于删除单个商品。"
+                        }
+                      ],
+                      "level": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "最后我们导出我们的路由。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-backend/controllers/manufacturer.js",
+          "display": true,
+          "commit": "a7fa82727c594ac36d8b7df70c26b569234bd572",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "接下来我们来看一看具体的 "
+                    },
+                    {
+                      "text": "manufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " Controller。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-backend/controllers/manufacturer.js",
+              "commit": "a7fa82727c594ac36d8b7df70c26b569234bd572",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "可以看到我们定义了一个 "
+                    },
+                    {
+                      "text": "manufacturerController",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象，用来组织一系列对 "
+                    },
+                    {
+                      "text": "manufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " 进行增删改查的操作。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "我们在开头导入了我们之前定义的 "
+                    },
+                    {
+                      "text": "ManufacturerModel",
+                      "code": true
+                    },
+                    {
+                      "text": "，这是 Mongoose 为我们提供的操作数据库的接口，我们通过定义在 Model 上的一系列如 find、findOne、updateOne、deleteOne 执行我们对数据的增删改成操作。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-backend/controllers/product.js",
+          "display": true,
+          "commit": "a7fa82727c594ac36d8b7df70c26b569234bd572",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "最后是我们的 "
+                    },
+                    {
+                      "text": "product",
+                      "code": true
+                    },
+                    {
+                      "text": " Controller ，它内部的操作和我们上面讲到的 "
+                    },
+                    {
+                      "text": "manufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " Controller 基本一致。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-backend/controllers/product.js",
+              "commit": "a7fa82727c594ac36d8b7df70c26b569234bd572",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "编写完上面的代码并保存，打开终端输入 "
+                    },
+                    {
+                      "text": "npm start",
+                      "code": true
+                    },
+                    {
+                      "text": " 来开启我们的服务器。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "因为我们的服务器在开启时要连接 MongoDB 数据库，所以要确保本地的 MongoDB 数据库已经开启"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "好了，现在我们的 API 服务器就搭建完成了，我们可以通过 API 测试工具 "
+                },
+                {
+                  "text": "POSTman",
+                  "link": true,
+                  "url": "https://www.postman.com/"
+                },
+                {
+                  "text": " 来测试一下我们 API 是否成功。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "github": "https://github.com/liubrook/vue-online-shop",
