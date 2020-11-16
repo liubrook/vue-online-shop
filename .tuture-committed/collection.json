@@ -5813,6 +5813,794 @@
           ]
         }
       ]
+    },
+    {
+      "commit": "249ddc89637357fb771089ef895dd11bd6a2af72",
+      "id": "dbb17acd",
+      "articleId": "642b7609",
+      "type": "step",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "249ddc89637357fb771089ef895dd11bd6a2af72",
+          "id": "3169ad4e",
+          "fixed": true,
+          "children": [
+            {
+              "text": "使用 Action 获取远程数据"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "我们在上一节中我们在上一节中学习了如何在视图层发起本地状态修改的 “通知”，这一节我们来学习如何从后端获取远程数据。请求库我们采用的是 "
+                },
+                {
+                  "text": "axios",
+                  "link": true,
+                  "url": "https://www.npmjs.com/package/axios"
+                },
+                {
+                  "text": ":"
+                }
+              ]
+            },
+            {
+              "type": "code-block",
+              "children": [
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "npm install axios"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/package-lock.json",
+          "display": false,
+          "commit": "249ddc89637357fb771089ef895dd11bd6a2af72",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/package-lock.json",
+              "commit": "249ddc89637357fb771089ef895dd11bd6a2af72",
+              "hiddenLines": [
+                [
+                  0,
+                  279
+                ],
+                [
+                  294,
+                  4098
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/package.json",
+          "display": false,
+          "commit": "249ddc89637357fb771089ef895dd11bd6a2af72",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/package.json",
+              "commit": "249ddc89637357fb771089ef895dd11bd6a2af72",
+              "hiddenLines": [
+                [
+                  0,
+                  8
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/index.js",
+          "display": true,
+          "commit": "249ddc89637357fb771089ef895dd11bd6a2af72",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": "实现第一个 Action"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "让我们趁热打铁，实现第一个 Action。再次来到 "
+                    },
+                    {
+                      "text": "src/store/index.js",
+                      "code": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/index.js",
+              "commit": "249ddc89637357fb771089ef895dd11bd6a2af72",
+              "hiddenLines": [
+                [
+                  8,
+                  10
+                ],
+                [
+                  60,
+                  63
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "可以看到，我们做了以下几件事："
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "导入了 "
+                        },
+                        {
+                          "text": "axios",
+                          "code": true
+                        },
+                        {
+                          "text": "，并定义了 "
+                        },
+                        {
+                          "text": "API_BASE",
+                          "code": true
+                        },
+                        {
+                          "text": " 后端接口根路由；"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "我们在 "
+                        },
+                        {
+                          "text": "store",
+                          "code": true
+                        },
+                        {
+                          "text": " 中去掉了之前硬编码的假数据，使 "
+                        },
+                        {
+                          "text": "products",
+                          "code": true
+                        },
+                        {
+                          "text": " 默认值为空数组；"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": "然后在"
+                        },
+                        {
+                          "text": "mutations 属性中添加了 ALL_PRODUCTS 和 ALL_PRODUCTS_SUCCESS 方法，"
+                        },
+                        {
+                          "text": "用来响应 action 中提交的对应类型事件；ALL_PRODUCTS 将 state.showLoader 设为 true，显示加载状态；ALL_PRODUCTS_SUCCESS 将 action 中提交的数据保存到 state 中，并取消加载状态；"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "最后添加了 actions 属性，在 actions 属性中定义了 allProducts 函数用于响应视图层分发的对应类型的事件；我们首先提交了类型为 ALL_PRODUCTS 的 mutation ，接着在 axios 请求成功后提交 ALL_PRODUCTS_SUCCESS，并附带 products 数据体（payload）"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    }
+                  ]
+                },
+                {
+                  "type": "note",
+                  "level": "info",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "我们可以看到 "
+                        },
+                        {
+                          "text": "allProducts",
+                          "code": true
+                        },
+                        {
+                          "text": " 方法中传入了 "
+                        },
+                        {
+                          "text": "{ commit }",
+                          "code": true
+                        },
+                        {
+                          "text": " 参数，这是采用了解构赋值的方式 "
+                        },
+                        {
+                          "text": "const { commit } = context",
+                          "code": true
+                        },
+                        {
+                          "text": "，避免后面使用 "
+                        },
+                        {
+                          "text": "context.commit",
+                          "code": true
+                        },
+                        {
+                          "text": " 过于繁琐。"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/components/products/ProductList.vue",
+          "display": true,
+          "commit": "249ddc89637357fb771089ef895dd11bd6a2af72",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "更新 ProductList 组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "再来看 "
+                    },
+                    {
+                      "text": "src/components/products/ProductList.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，我们对其做了修改，主要添加了生命周期函数 "
+                    },
+                    {
+                      "text": "created",
+                      "code": true
+                    },
+                    {
+                      "text": "，在该组件刚被创建时首先判断本地 "
+                    },
+                    {
+                      "text": "products",
+                      "code": true
+                    },
+                    {
+                      "text": " 中是否有商品，如果没有就向后端发起网络请求获取数据。代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/components/products/ProductList.vue",
+              "commit": "249ddc89637357fb771089ef895dd11bd6a2af72",
+              "hiddenLines": [
+                [
+                  0,
+                  7
+                ],
+                [
+                  16,
+                  20
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "注意到我们修改了两个地方："
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "调整模板中 “生产厂商” 字段，把 "
+                        },
+                        {
+                          "text": "{{product.manufacturer}}",
+                          "code": true
+                        },
+                        {
+                          "text": " 修改为 "
+                        },
+                        {
+                          "text": "{{product.manufacturer.name}}",
+                          "code": true
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": "",
+                          "code": true
+                        },
+                        {
+                          "text": "添加 "
+                        },
+                        {
+                          "text": "created",
+                          "code": true
+                        },
+                        {
+                          "text": " 生命周期方法，在该组件刚被创建时判断 "
+                        },
+                        {
+                          "text": "this.products.length === 0",
+                          "code": true
+                        },
+                        {
+                          "text": " 是 "
+                        },
+                        {
+                          "text": "true",
+                          "code": true
+                        },
+                        {
+                          "text": " 还是 "
+                        },
+                        {
+                          "text": "false",
+                          "code": true
+                        },
+                        {
+                          "text": "，如果是 "
+                        },
+                        {
+                          "text": "true",
+                          "code": true
+                        },
+                        {
+                          "text": " 则证明本地中还没有任何商品，需要向后端获取商品数据，于是通过 "
+                        },
+                        {
+                          "text": "this.$store.dispatch",
+                          "code": true
+                        },
+                        {
+                          "text": " 的方式触发类型为 "
+                        },
+                        {
+                          "text": "allProducts",
+                          "code": true
+                        },
+                        {
+                          "text": " 的 "
+                        },
+                        {
+                          "text": "action",
+                          "code": true
+                        },
+                        {
+                          "text": " 中，在 "
+                        },
+                        {
+                          "text": "action",
+                          "code": true
+                        },
+                        {
+                          "text": " 中进行异步操作，发起网络请求向后端请求商品数据并返回；如果是 "
+                        },
+                        {
+                          "text": "false",
+                          "code": true
+                        },
+                        {
+                          "text": " 则证明本地中存在商品，所以可以直接从本地获取然后进行渲染。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/Cart.vue",
+          "display": true,
+          "commit": "249ddc89637357fb771089ef895dd11bd6a2af72",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "最后我们也同样需要调整一下 "
+                    },
+                    {
+                      "text": "src/pages/Cart.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 中的 “生产厂商” 字段，修改其模板代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/Cart.vue",
+              "commit": "249ddc89637357fb771089ef895dd11bd6a2af72",
+              "hiddenLines": [
+                [
+                  0,
+                  7
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "同样把 "
+                    },
+                    {
+                      "text": "{{product.manufacturer}}",
+                      "code": true
+                    },
+                    {
+                      "text": " 修改为 "
+                    },
+                    {
+                      "text": "{{product.manufacturer.name}}",
+                      "code": true
+                    },
+                    {
+                      "text": "。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "heading-three",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "小结"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "在这一部分中我们学习了如何使用 "
+                },
+                {
+                  "text": "Action",
+                  "code": true
+                },
+                {
+                  "text": " 获取远程数据，并将获取的数据提交到对应的 "
+                },
+                {
+                  "text": "Mutation",
+                  "code": true
+                },
+                {
+                  "text": " 中："
+                }
+              ]
+            },
+            {
+              "type": "bulleted-list",
+              "children": [
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "首先我们需要导入相关依赖："
+                    },
+                    {
+                      "text": "axios",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "API_BASE",
+                      "code": true
+                    },
+                    {
+                      "text": "，由于发起网络请求。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "其次我们需要在 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 实例中添加 "
+                    },
+                    {
+                      "text": "actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性，并在 "
+                    },
+                    {
+                      "text": "actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性定义对应的方法，用于响应视图层分发的对应类型的事件。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "在不同的方法中发起不同的网络请求，你是需要从后端获取数据，还是修改后端数据等等。然后将后端响应的数据结果提交到对应类型的 "
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 中。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "github": "https://github.com/liubrook/vue-online-shop",
