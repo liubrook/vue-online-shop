@@ -21,6 +21,14 @@
       "categories": [],
       "cover": "",
       "description": "这是本教程的第二个部分，使用 Node.js 的 Express 路由框架来编写我们迷你淘宝的 API 后台部分，在这个教程中，你将学到一个基础的 Web 后台 API 应用如何搭建，包括中间件、路由等，如何通过 Node.js 数据库接口包操作 MongoDB 数据库，并且通过 Postman 来测试我们写好的 API。"
+    },
+    {
+      "id": "642b7609",
+      "created": "2020-10-22T13:11:00.654Z",
+      "name": "从零到部署：用 Vue 和 Express 实现迷你全栈电商应用（三）",
+      "topics": [],
+      "categories": [],
+      "cover": ""
     }
   ],
   "steps": [
@@ -3872,6 +3880,1933 @@
                 },
                 {
                   "text": " 来测试一下我们 API 是否成功。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "commit": "0655c91094c0a1a39dcbcf25d3add0e880d60844",
+      "id": "7cd2d075",
+      "articleId": "642b7609",
+      "type": "step",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "0655c91094c0a1a39dcbcf25d3add0e880d60844",
+          "id": "320469a1",
+          "fixed": true,
+          "children": [
+            {
+              "text": "数据添加"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "在"
+                },
+                {
+                  "text": "第一篇文章",
+                  "link": true,
+                  "url": "https://brookliu.xyz/2020/01/18/%E4%BB%8E%E9%9B%B6%E5%88%B0%E9%83%A8%E7%BD%B2%EF%BC%9A%E7%94%A8-Vue-%E5%92%8C-Express-%E5%AE%9E%E7%8E%B0%E8%BF%B7%E4%BD%A0%E5%85%A8%E6%A0%88%E7%94%B5%E5%95%86%E5%BA%94%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89/#more"
+                },
+                {
+                  "text": "中我们实现了一个简陋的前端页面，来当我们完成了商城应用的基本页面框架之后，我们就可以开始考虑具体页面的内容了。首先我们要考虑的就是数据的来源，即添加商品页面。有了添加商品的入口，我们就可以展示商品列表，获取商品详情，甚至是修改商品信息。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/components/ProductForm.vue",
+          "display": true,
+          "commit": "0655c91094c0a1a39dcbcf25d3add0e880d60844",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "我们在   "
+                    },
+                    {
+                      "text": "src/components",
+                      "code": true
+                    },
+                    {
+                      "text": " 中创建 "
+                    },
+                    {
+                      "text": "ProductForm.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 表单组件，用来添加或者更新商品信息，代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/components/ProductForm.vue",
+              "commit": "0655c91094c0a1a39dcbcf25d3add0e880d60844",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "这里我们用form表单来提交商品信息"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/admin/New.vue",
+          "display": true,
+          "commit": "0655c91094c0a1a39dcbcf25d3add0e880d60844",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "编写完上面的表单之后，在New.vue中引入我们的表单组件"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/admin/New.vue",
+              "commit": "0655c91094c0a1a39dcbcf25d3add0e880d60844",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "",
+                      "code": true
+                    },
+                    {
+                      "text": "当保存上面编写的代码之后，我们打开浏览器，点击导航链接 "
+                    },
+                    {
+                      "text": "Admin",
+                      "code": true
+                    },
+                    {
+                      "text": "，然后点击子导航链接 "
+                    },
+                    {
+                      "text": "New Products",
+                      "code": true
+                    },
+                    {
+                      "text": "，切换到我们的 "
+                    },
+                    {
+                      "text": "New.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 添加商品页面，我们可以看到如下的效果："
+                    },
+                    {
+                      "text": "",
+                      "code": true
+                    }
+                  ]
+                },
+                {
+                  "type": "image",
+                  "children": [
+                    {
+                      "text": "",
+                      "code": true
+                    }
+                  ],
+                  "url": "https://static.tuture.co/u/24768909-791a-45ee-a9ae-c79f93f579ad.jpg"
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "commit": "5886a04768a79f3d9dd39952459a30cfb25e4161",
+      "id": "0e88ac7c",
+      "articleId": "642b7609",
+      "type": "step",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "5886a04768a79f3d9dd39952459a30cfb25e4161",
+          "id": "535ef270",
+          "fixed": true,
+          "children": [
+            {
+              "text": "使用Vuex进行状态管理"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "我们在前面所进行的一些工作处理一些简单的逻辑是没有问题的，但是针对复杂的逻辑，比如嵌套超过三级处理起来就比较麻烦，所以我们要用到状态管理容器"
+                },
+                {
+                  "text": "Vuex",
+                  "link": true,
+                  "url": "https://vuex.vuejs.org/zh/"
+                },
+                {
+                  "text": "来处理大型的应用数据和状态管理。"
+                }
+              ]
+            },
+            {
+              "type": "heading-three",
+              "children": [
+                {
+                  "text": "安装 Vuex 依赖"
+                }
+              ]
+            },
+            {
+              "type": "code-block",
+              "children": [
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "npm install vuex"
+                    }
+                  ]
+                }
+              ],
+              "lang": "javascript"
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/package-lock.json",
+          "display": false,
+          "commit": "5886a04768a79f3d9dd39952459a30cfb25e4161",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/package-lock.json",
+              "commit": "5886a04768a79f3d9dd39952459a30cfb25e4161",
+              "hiddenLines": [
+                [
+                  0,
+                  10851
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ],
+              "hideDiff": false
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/package.json",
+          "display": false,
+          "commit": "5886a04768a79f3d9dd39952459a30cfb25e4161",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/package.json",
+              "commit": "5886a04768a79f3d9dd39952459a30cfb25e4161",
+              "hiddenLines": [
+                [
+                  0,
+                  9
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/components/products/ProductForm.vue",
+          "display": false,
+          "commit": "5886a04768a79f3d9dd39952459a30cfb25e4161",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/components/products/ProductForm.vue",
+              "commit": "5886a04768a79f3d9dd39952459a30cfb25e4161",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/index.js",
+          "display": true,
+          "commit": "5886a04768a79f3d9dd39952459a30cfb25e4161",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": "创建 Vuex Store"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "Vuex 是一个前端状态管理工具，它致力于接管 Vue 的状态，使得 Vue 专心做好渲染页面的事情；它类似在前端建立了一个 “数据库”，然后将所有的前端状态都保存在这个 “数据库” 里面。这个 “数据库” 其实就是一个普通的 JavaScript 对象。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "好了，讲述了 Vuex 是干什么之后，我们来看一下如何在 Vue 中运用 Vuex。Vuex 建立的这个 “数据库” 一般用术语 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 来表示，通常我们建立一个单独的 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件夹，用于保存和 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 有关的内容。我们在 "
+                    },
+                    {
+                      "text": "src",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件夹下建立 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件夹，然后在里面创建 "
+                    },
+                    {
+                      "text": "index.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/index.js",
+              "commit": "5886a04768a79f3d9dd39952459a30cfb25e4161",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "上面的代码可以分为三部分。"
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": "首先我们导入 "
+                        },
+                        {
+                          "text": "Vue",
+                          "code": true
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": "",
+                          "code": true
+                        },
+                        {
+                          "text": "然后我们调用 "
+                        },
+                        {
+                          "text": "Vue.use",
+                          "code": true
+                        },
+                        {
+                          "text": " 方法，告诉 Vue 我们将使用 "
+                        },
+                        {
+                          "text": "Vuex",
+                          "code": true
+                        },
+                        {
+                          "text": "，这和我们之前使用 "
+                        },
+                        {
+                          "text": "Vue.use(router)",
+                          "code": true
+                        },
+                        {
+                          "text": " 的原理一样"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "最后我们导出 "
+                        },
+                        {
+                          "text": "Vuex.Store",
+                          "code": true
+                        },
+                        {
+                          "text": " 实例，并且传入了 "
+                        },
+                        {
+                          "text": "strict",
+                          "code": true
+                        },
+                        {
+                          "text": " 和 "
+                        },
+                        {
+                          "text": "state",
+                          "code": true
+                        },
+                        {
+                          "text": " 参数。这里 "
+                        },
+                        {
+                          "text": "strict",
+                          "code": true
+                        },
+                        {
+                          "text": " 参数表示，我们必须使用 Vuex 的 Mutation 函数来改变 "
+                        },
+                        {
+                          "text": "state",
+                          "code": true
+                        },
+                        {
+                          "text": "，否则就会报错（关于 Mutation 我们将在 “使用 Vuex 进行状态管理” 一节讲解）。而 "
+                        },
+                        {
+                          "text": "state",
+                          "code": true
+                        },
+                        {
+                          "text": " 参数用来存放我们全局的状态，比如我们这里定义了 "
+                        },
+                        {
+                          "text": "cart",
+                          "code": true
+                        },
+                        {
+                          "text": "、 "
+                        },
+                        {
+                          "text": "showLoader",
+                          "code": true
+                        },
+                        {
+                          "text": " 等属性都是后面我们完善应用的内容需要的数据。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/main.js",
+          "display": true,
+          "commit": "5886a04768a79f3d9dd39952459a30cfb25e4161",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "将 Vuex 和 Vue 整合"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "当我们创建并导出了 Vuex 的 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 实例之后，我们就可以使用它了。打开 "
+                    },
+                    {
+                      "text": "src/main.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，在开头导入之前创建的 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " ，并将 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 添加到 Vue 初始化的参数列表里，代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/main.js",
+              "commit": "5886a04768a79f3d9dd39952459a30cfb25e4161",
+              "hiddenLines": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  9,
+                  9
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "可以看到，在上面的文件中，我们一开头导入了我们之前在 "
+                    },
+                    {
+                      "text": "src/store/index.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 里定义的 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 实例，接着，在 Vue 实例初始化时，我们将这个 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 实例使用对象属性简洁写法添加到了参数列表里。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "当我们将 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 当做参数传给 Vue 进行初始化之后，Vue 就会将 Store 里面的 "
+                    },
+                    {
+                      "text": "state",
+                      "code": true
+                    },
+                    {
+                      "text": " 注入到所有的 Vue 组件中，这样所有的 Vue 组件共享同一个全局的 "
+                    },
+                    {
+                      "text": "state",
+                      "code": true
+                    },
+                    {
+                      "text": " ，它其实就是一个 JS 对象，应用中所有状态的变化都是对 "
+                    },
+                    {
+                      "text": "state",
+                      "code": true
+                    },
+                    {
+                      "text": " 进行操作，然后响应式的触发组件的重新渲染，所以这里的 "
+                    },
+                    {
+                      "text": "state",
+                      "code": true
+                    },
+                    {
+                      "text": " 也有 “数据的唯一真相来源” 的称谓。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "这种将状态保存到一个全局的 JavaScript 对象 – state 中，然后所有的增、删、改、查操作都是对这个 JavaScript 对象进行，使得我们可以避免组件嵌套层级过深时，组件之间传递属性的复杂性，让属性的定义，获取，修改非常直观，方便开发大型应用和团队协作。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/admin/Products.vue",
+          "display": true,
+          "commit": "5886a04768a79f3d9dd39952459a30cfb25e4161",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "查看 Vuex 整合后的效果"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们打开 "
+                    },
+                    {
+                      "text": "src/pages/admin/Products.vue",
+                      "code": true
+                    },
+                    {
+                      "text": "，对内容作出如下改进以查看 Vuex 和 Vue 整合之后的效果："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/admin/Products.vue",
+              "commit": "5886a04768a79f3d9dd39952459a30cfb25e4161",
+              "hiddenLines": [
+                [
+                  0,
+                  2
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "可以看到，上面的内容改进主要分为两个部分："
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "首先我们定义了一个 "
+                        },
+                        {
+                          "text": "product",
+                          "code": true
+                        },
+                        {
+                          "text": " 计算属性，它里面返回一个从 "
+                        },
+                        {
+                          "text": "store",
+                          "code": true
+                        },
+                        {
+                          "text": " 中保存的 "
+                        },
+                        {
+                          "text": "state",
+                          "code": true
+                        },
+                        {
+                          "text": " 取到的 "
+                        },
+                        {
+                          "text": "products",
+                          "code": true
+                        },
+                        {
+                          "text": " 数组的第一个元素，注意到当我们在 “将 Vuex 和 Vue 整合” 这一小节中将 "
+                        },
+                        {
+                          "text": "store",
+                          "code": true
+                        },
+                        {
+                          "text": " 作为 Vue 初始化实例参数，所以我们在所有的 Vue 组件中可以通过 "
+                        },
+                        {
+                          "text": "this.$store.state",
+                          "code": true
+                        },
+                        {
+                          "text": " 的形式取到 Vuex Store 中保存的 "
+                        },
+                        {
+                          "text": "state",
+                          "code": true
+                        },
+                        {
+                          "text": "。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "接着我们使用了计算属性 "
+                        },
+                        {
+                          "text": "product",
+                          "code": true
+                        },
+                        {
+                          "text": "，取到了它的 "
+                        },
+                        {
+                          "text": "name",
+                          "code": true
+                        },
+                        {
+                          "text": " 属性进行渲染。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "heading-three",
+              "children": [
+                {
+                  "text": "小结"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "在这一小节中，我们学习了如何将 Vuex 整合进 Vue 中："
+                }
+              ]
+            },
+            {
+              "type": "bulleted-list",
+              "children": [
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": "首先我们安装了 "
+                    },
+                    {
+                      "text": "vuex",
+                      "code": true
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": "",
+                      "code": true
+                    },
+                    {
+                      "text": "接着我们在 "
+                    },
+                    {
+                      "text": "src",
+                      "code": true
+                    },
+                    {
+                      "text": " 下面创建了 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件夹，用于保存 Vuex 相关的内容，在 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件下之下，我们创建了 "
+                    },
+                    {
+                      "text": "index.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，在里面实例化了 "
+                    },
+                    {
+                      "text": "Vuex.Store",
+                      "code": true
+                    },
+                    {
+                      "text": " 类，我们在实例化的过程中传递了两个参数："
+                    },
+                    {
+                      "text": "strict",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "state",
+                      "code": true
+                    },
+                    {
+                      "text": "，"
+                    },
+                    {
+                      "text": "strict",
+                      "code": true
+                    },
+                    {
+                      "text": " 表示我们告诉 Vue，只允许 "
+                    },
+                    {
+                      "text": "Mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 方法才能修改 "
+                    },
+                    {
+                      "text": "state",
+                      "code": true
+                    },
+                    {
+                      "text": "，确保修改状态的唯一性；"
+                    },
+                    {
+                      "text": "state",
+                      "code": true
+                    },
+                    {
+                      "text": " 是我们整个应用的状态，整个应用的状态都是从它获取，整个应用状态的改变都是修改它，所以这个 "
+                    },
+                    {
+                      "text": "state",
+                      "code": true
+                    },
+                    {
+                      "text": " 也有 “数据的唯一真相来源” 的称谓。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "然后我们通过在 "
+                    },
+                    {
+                      "text": "main.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 里面导入实例化的 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": "，将它加入到初始化 Vue 实例的参数列表中，实现了 Vuex 和 Vue 的整合。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "最后我们讲解了计算属性，然后通过在计算属性中获取 "
+                    },
+                    {
+                      "text": "this.$store.state",
+                      "code": true
+                    },
+                    {
+                      "text": " 的方式展示了 Vuex 整合之后的效果。"
+                    },
+                    {
+                      "text": ""
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "commit": "566393793a4865a927fcd80ab7453d8725f69457",
+      "id": "09579f8e",
+      "articleId": "642b7609",
+      "type": "step",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "566393793a4865a927fcd80ab7453d8725f69457",
+          "id": "c55f1da4",
+          "fixed": true,
+          "children": [
+            {
+              "text": "使用 Mutation 修改本地状态"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "我们在上一步中定义了 Vuex Store，并在里面保存了全局的状态 "
+                },
+                {
+                  "text": "state,现在我们来试着修改状态。",
+                  "code": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/index.js",
+          "display": true,
+          "commit": "566393793a4865a927fcd80ab7453d8725f69457",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "初始化状态（硬编码）"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们打开 "
+                    },
+                    {
+                      "text": "src/store/index.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，修改其中的 "
+                    },
+                    {
+                      "text": "state",
+                      "code": true
+                    },
+                    {
+                      "text": " 并加上 "
+                    },
+                    {
+                      "text": "mutations",
+                      "code": true
+                    },
+                    {
+                      "text": " 如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/index.js",
+              "commit": "566393793a4865a927fcd80ab7453d8725f69457",
+              "hiddenLines": [
+                [
+                  0,
+                  9
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "可以看到上面的代码改进分为两个部分："
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": "首先我们扩充了 "
+                        },
+                        {
+                          "text": "state",
+                          "code": true
+                        },
+                        {
+                          "text": " 中的 "
+                        },
+                        {
+                          "text": "products",
+                          "code": true
+                        },
+                        {
+                          "text": " 属性，在里面保存一开始我们的迷你电商平台的初始数据，这里我们是硬编码到代码中的，在下一节 “使用 Action 获取远程数据” 中，我们将动态获取后端服务器的数据。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": "接着我们在Vuex.Store实例化的参数中添加了一个mutations属性，在里面定义了两个函数ADD_TO_CART和REMOVE_FROM_CART，分别代表响应从视图层发起的对应将商品加入购物车和从购物车移除商品的动作。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/components/products/ProductList.vue",
+          "display": true,
+          "commit": "566393793a4865a927fcd80ab7453d8725f69457",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": "创建 ProductList 组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "接着创建 "
+                    },
+                    {
+                      "text": "src/components/products/ProductList.vue",
+                      "code": true
+                    },
+                    {
+                      "text": "文件，它是商品列表组件，用来展示商品的详细信息，代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/components/products/ProductList.vue",
+              "commit": "566393793a4865a927fcd80ab7453d8725f69457",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们首先来看该组件的 "
+                    },
+                    {
+                      "text": "script",
+                      "code": true
+                    },
+                    {
+                      "text": " 部分："
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "先定义了一个计算属性 "
+                        },
+                        {
+                          "text": "products",
+                          "code": true
+                        },
+                        {
+                          "text": "，通过 "
+                        },
+                        {
+                          "text": "this.$store.state.products",
+                          "code": true
+                        },
+                        {
+                          "text": " 从本地状态中获取到了 "
+                        },
+                        {
+                          "text": "products",
+                          "code": true
+                        },
+                        {
+                          "text": " 数组，并作为计算属性 "
+                        },
+                        {
+                          "text": "products",
+                          "code": true
+                        },
+                        {
+                          "text": " 的返回值"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "然后定义了一个点击事件 "
+                        },
+                        {
+                          "text": "addToCart",
+                          "code": true
+                        },
+                        {
+                          "text": "，并且传入了当前处于激活状态的 "
+                        },
+                        {
+                          "text": "product",
+                          "code": true
+                        },
+                        {
+                          "text": " 参数。当用户点击 “添加购物车” 时，"
+                        },
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "触发 addToCart 事件，也就是上面所说的视图层发出的事件。这里是通过 this .$store.commit 将携带当前商品的对象 {product} 作为载荷提交到类型为 ADD_TO_CART 的 mutation 中，在 mutation 中进行本地状态修改，我们会在后面抽离出的 mutations 文件中看到具体的操作。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "再看该组件的 "
+                    },
+                    {
+                      "text": "template",
+                      "code": true
+                    },
+                    {
+                      "text": " 部分，使用 "
+                    },
+                    {
+                      "text": "v-for",
+                      "code": true
+                    },
+                    {
+                      "text": " 将从本地获取到的 "
+                    },
+                    {
+                      "text": "products",
+                      "code": true
+                    },
+                    {
+                      "text": " 数组进行遍历，每个 "
+                    },
+                    {
+                      "text": "product",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象的详细信息都会显示在模板中。此外，我们还在每个 "
+                    },
+                    {
+                      "text": "product",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象信息的最后添加了一个 “加入购物车” 的按钮，允许我们将指定商品添加到购物车。"
+                    },
+                    {
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/Home.vue",
+          "display": true,
+          "commit": "566393793a4865a927fcd80ab7453d8725f69457",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "在页面中接入数据"
+                    },
+                    {
+                      "text": ""
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "修改主页 "
+                    },
+                    {
+                      "text": "src/pages/Home.vue",
+                      "code": true
+                    },
+                    {
+                      "text": "，代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/Home.vue",
+              "commit": "566393793a4865a927fcd80ab7453d8725f69457",
+              "hiddenLines": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "可以看到，我们在导入 "
+                    },
+                    {
+                      "text": "ProductList",
+                      "code": true
+                    },
+                    {
+                      "text": " 组件后，将其注册到 "
+                    },
+                    {
+                      "text": "components",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，然后在模板中使用这个组件。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/Cart.vue",
+          "display": true,
+          "commit": "566393793a4865a927fcd80ab7453d8725f69457",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "接着修改购物车页面 "
+                    },
+                    {
+                      "text": "src/pages/Cart.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，将购物车中的商品信息展示出来，添加代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/Cart.vue",
+              "commit": "566393793a4865a927fcd80ab7453d8725f69457",
+              "hiddenLines": [
+                [
+                  0,
+                  2
+                ],
+                [
+                  19,
+                  22
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们在该组件中主要增加了两部分代码："
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": "首先是 "
+                        },
+                        {
+                          "text": "script",
+                          "code": true
+                        },
+                        {
+                          "text": "部分，我们增加了一个计算属性和一个点击事件。同样是通过 "
+                        },
+                        {
+                          "text": "this.$store.state.cart",
+                          "code": true
+                        },
+                        {
+                          "text": "的方式从本地状态中获取购物车数组，并作为计算属性 "
+                        },
+                        {
+                          "text": "cart",
+                          "code": true
+                        },
+                        {
+                          "text": " 的返回值；当用户点击购物车中的某个商品将其移除购物车时就会触发 "
+                        },
+                        {
+                          "text": "removeFromCart",
+                          "code": true
+                        },
+                        {
+                          "text": " 事件，"
+                        },
+                        {
+                          "text": "并且将要移除的商品 id 作为参数传入，然后也是通过 this.$store.commit 的方式将包含 productId 的对象作为载荷提交到类型为 REMOVE_FROM_CART 的 mutation 中，"
+                        },
+                        {
+                          "text": "在 "
+                        },
+                        {
+                          "text": "mutation",
+                          "code": true
+                        },
+                        {
+                          "text": " 中进行本地状态修改，具体修改操作我们可以在后面抽离出的 "
+                        },
+                        {
+                          "text": "mutations",
+                          "code": true
+                        },
+                        {
+                          "text": " 文件中看到。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "然后是 "
+                        },
+                        {
+                          "text": "template",
+                          "code": true
+                        },
+                        {
+                          "text": " 部分，我们通过 "
+                        },
+                        {
+                          "text": "v-for",
+                          "code": true
+                        },
+                        {
+                          "text": " 遍历了购物车数组，将购物车中的所有商品信息展示在模板中。并在每个商品信息的最后添加了一个移除购物车的按钮，当用户希望移除购物车中指定商品时，会触发 "
+                        },
+                        {
+                          "text": "removeFromCart",
+                          "code": true
+                        },
+                        {
+                          "text": " 事件。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "heading-three",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "小结"
+                },
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "在这一部分中我们学习了如何发起修改本地状态的 “通知”："
+                }
+              ]
+            },
+            {
+              "type": "bulleted-list",
+              "children": [
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": "首先我们需要在 "
+                    },
+                    {
+                      "text": "Vuex.Store",
+                      "code": true
+                    },
+                    {
+                      "text": "实例化的参数中添加一个 "
+                    },
+                    {
+                      "text": "mutations",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性，"
+                    },
+                    {
+                      "text": "在该属性中添加对应的方法，比如 ADD_TO_CART 和 REMOVE_FROM_CART。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "然后我们需要通过用户不同的操作（比如点击添加购物车或者移除购物车）来发起 “通知”，"
+                    },
+                    {
+                      "text": "进而通过 this.$store.commit 的方式将需要操作的对象作为载荷提交到对应类型（也就是 ADD_TO_CART 和 REMOVE_FROM_CART）的 mutation 中，在 mutation 中进行本地状态修改。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
                 }
               ]
             }
