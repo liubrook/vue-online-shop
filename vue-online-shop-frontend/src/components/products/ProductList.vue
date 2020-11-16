@@ -9,7 +9,7 @@
           <p class="product_name">产品名称：{{product.name}}</p>
           <p class="product_description">介绍：{{product.description}}</p>
           <p class="product_price">价格：{{product.price}}</p>
-          <p class="product_manufacturer">生产厂商：{{product.manufacturer}}</p>
+          <p class="product_manufacturer">生产厂商：{{product.manufacturer.name}}</p>
           <img :src="product.image" alt="" class="product_image">
           <button @click="addToCart(product)">加入购物车</button>
         </div>
@@ -21,6 +21,11 @@
 <script>
 export default {
   name: 'product-list',
+  created() {
+    if (this.products.length === 0) {
+      this.$store.dispatch('allProducts')
+    }
+  },
   computed: {
     products() {
       return this.$store.state.products
