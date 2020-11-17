@@ -38,6 +38,15 @@
       "categories": [],
       "cover": "",
       "description": "组件化和逻辑复用能帮助写出简洁易懂的代码，随着应用越写越复杂，我们有必要把视图层中重复的逻辑抽成组件，以求在多个页面中复用；同时对于 Vuex 端，Store 中的逻辑也会越来越臃肿，我们有必要使用 Vuex 提供的 Getters 来复用本地数据获取逻辑。在这篇教程中，我们将带领你抽出 Vue 组件简化页面逻辑，使用 Vuex Getters 复用本地数据获取逻辑。"
+    },
+    {
+      "id": "083aea8d",
+      "created": "2020-11-17T15:02:06.960Z",
+      "name": "从零到部署：用 Vue 和 Express 实现迷你全栈电商应用（五）",
+      "topics": [],
+      "categories": [],
+      "cover": "",
+      "description": "前面五篇教程我们已经基本实现了迷你全栈电商应用的界面展示以及功能逻辑，相信大家在这个过程中都收获颇丰，并且迈向了全栈工程师的第一步。但是我们却并不满足于此，我们还需要对我们的项目代码进行优化，使得我们的代码可读性更高，也更好维护。相信细心的你们已经感觉到了项目中的 store 实例实在是过于臃肿，因此，本篇教程就是带大家一起学习如何抽出 Getters 、 Mutations 和 Actions 逻辑实现 store 的 “减重” 以及如何干掉 mutation-types 硬编码。"
     }
   ],
   "steps": [
@@ -8746,6 +8755,3805 @@
                   ],
                   "level": 0,
                   "parent": "bulleted-list"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+      "id": "1570feca",
+      "articleId": "083aea8d",
+      "type": "step",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+          "id": "842e69c7",
+          "fixed": true,
+          "children": [
+            {
+              "text": "抽出 Getters 和 Mutations 逻辑"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "原文地址",
+                  "link": true,
+                  "url": "https://tuture.co/2020/03/03/-Oixkkq/"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "这一节我们来学习如何抽出在 "
+                },
+                {
+                  "text": "store",
+                  "code": true
+                },
+                {
+                  "text": "实例中定义的复杂 "
+                },
+                {
+                  "text": "getters",
+                  "code": true
+                },
+                {
+                  "text": " 和 "
+                },
+                {
+                  "text": "mutation",
+                  "code": true
+                },
+                {
+                  "text": " 逻辑。"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "我们发现之前我们直接把所有的 "
+                },
+                {
+                  "text": "getter",
+                  "code": true
+                },
+                {
+                  "text": " 属性和方法都定义在了 "
+                },
+                {
+                  "text": "store",
+                  "code": true
+                },
+                {
+                  "text": " 实例中的 "
+                },
+                {
+                  "text": "getters",
+                  "code": true
+                },
+                {
+                  "text": " 属性中，所有的 "
+                },
+                {
+                  "text": "mutation",
+                  "code": true
+                },
+                {
+                  "text": " 属性也都定义在了 "
+                },
+                {
+                  "text": "store",
+                  "code": true
+                },
+                {
+                  "text": " 实例中的 "
+                },
+                {
+                  "text": "mutations",
+                  "code": true
+                },
+                {
+                  "text": " 属性中，这样显得 "
+                },
+                {
+                  "text": "store",
+                  "code": true
+                },
+                {
+                  "text": " 实例特别的累赘，因此我们可以通过对象展开运算符将这些复杂的逻辑抽取到对应的 "
+                },
+                {
+                  "text": "Getters",
+                  "code": true
+                },
+                {
+                  "text": " 和 "
+                },
+                {
+                  "text": "Mutations",
+                  "code": true
+                },
+                {
+                  "text": " 文件中。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/admin/Index.vue",
+          "display": true,
+          "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "重构 Admin 入口文件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "首先我们做一点本土化，把之前的 "
+                    },
+                    {
+                      "text": "src/pages/admin/Index.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 中的英文导航改成中文版，方便查看；并且我们增加了查看生产商导航。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/admin/Index.vue",
+              "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+              "hiddenLines": [
+                [
+                  0,
+                  3
+                ],
+                [
+                  19,
+                  19
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "这里我们将有关商品的导航栏修改为中文版，让用户能够秒懂；除此之外我们又添加了有关制造商的导航，这里增加的是"
+                    },
+                    {
+                      "text": "查看生产商",
+                      "bold": true
+                    },
+                    {
+                      "text": "导航，并添加了对应的导航跳转路径，该路径需要与对应路由参数一致。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/admin/Manufacturers.vue",
+          "display": true,
+          "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "创建 Manufacturers 组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们创建的 "
+                    },
+                    {
+                      "text": "src/pages/admin/Manufacturers.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件是本地制造商组件，用于展示制造商的信息。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/admin/Manufacturers.vue",
+              "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "这里首先定义了一个计算属性 "
+                    },
+                    {
+                      "text": "manufacturers",
+                      "code": true
+                    },
+                    {
+                      "text": "，通过 "
+                    },
+                    {
+                      "text": "this.$store.getters.allManufacturers",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性访问的形式调用对应的 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性 "
+                    },
+                    {
+                      "text": "allManufacturers",
+                      "code": true
+                    },
+                    {
+                      "text": " 从本地获取 "
+                    },
+                    {
+                      "text": "manufacturers",
+                      "code": true
+                    },
+                    {
+                      "text": "，并返回给计算属性 "
+                    },
+                    {
+                      "text": "manufacturers",
+                      "code": true
+                    },
+                    {
+                      "text": "。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "然后在该组件刚被创建时判断本地中是否存在 "
+                    },
+                    {
+                      "text": "manufacturers",
+                      "code": true
+                    },
+                    {
+                      "text": "，如果没有则通过 "
+                    },
+                    {
+                      "text": "this.$store.dispatch",
+                      "code": true
+                    },
+                    {
+                      "text": " 分发到类型为 "
+                    },
+                    {
+                      "text": "allManufacturers",
+                      "code": true
+                    },
+                    {
+                      "text": " 的 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 中进行异步操作获取所有制造商，并将获取的制造商提交到对应的 "
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，在 "
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 中修改本地状态，将获取的所有制造商保存到本地。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "最后利用 "
+                    },
+                    {
+                      "text": "v-for",
+                      "code": true
+                    },
+                    {
+                      "text": " 在表格中遍历 "
+                    },
+                    {
+                      "text": "manufacturers",
+                      "code": true
+                    },
+                    {
+                      "text": "，每个制造商的信息在一行展示，除了信息之外还有两个功能（修改和删除制造商），点击修改则会根据"
+                    },
+                    {
+                      "text": "'/admin/manufacturers/edit/' + manufacturer._id",
+                      "code": true
+                    },
+                    {
+                      "text": " 路由到指定页面；"
+                    },
+                    {
+                      "text": "点击删除则会触发 "
+                    },
+                    {
+                      "text": "removeManufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " 事件，首先询问用户是否同意删除，若用户同意则将选中制造商的 id 作为载荷分发到类型为 "
+                    },
+                    {
+                      "text": "removeManufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " 的 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，在 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 中进行异步操作删除后端对应商品，并将对应商品 id 提交到对应的 "
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，在 "
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 中进行本地状态修改，删除本地对应的商品。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/admin/Products.vue",
+          "display": true,
+          "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "重构 Products 组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "根据 "
+                    },
+                    {
+                      "text": "Manufacturers",
+                      "code": true
+                    },
+                    {
+                      "text": " 组件的设计原则，我们需要再次进入 "
+                    },
+                    {
+                      "text": "src/pages/admin/Products.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件。按照 "
+                    },
+                    {
+                      "text": "Manufacturers",
+                      "code": true
+                    },
+                    {
+                      "text": " 组件的 UI 展示以及数据处理，将 "
+                    },
+                    {
+                      "text": "Products",
+                      "code": true
+                    },
+                    {
+                      "text": " 组件进行一下重构。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/admin/Products.vue",
+              "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "这部分代码逻辑与 "
+                    },
+                    {
+                      "text": "src/pages/admin/Manufacturers.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件中的代码逻辑相似，如果您理解了上面的代码逻辑，那么我们相信您对这里的代码也能融会贯通，所以这里就不再赘述了。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/router/index.js",
+          "display": true,
+          "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "添加路由信息"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们已经创建了有关制造商的导航以及查看制造商组件，还需对其配置相应的路由参数才能实现跳转。因此再次进入 "
+                    },
+                    {
+                      "text": "src/router/index.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，这里我们导入了制造商组件并增加了制造商相关路由参数。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/router/index.js",
+              "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+              "hiddenLines": [
+                [
+                  0,
+                  7
+                ],
+                [
+                  15,
+                  38
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "把项目跑起来，点击 "
+                    },
+                    {
+                      "text": "Admin",
+                      "code": true
+                    },
+                    {
+                      "text": " 然后再点击"
+                    },
+                    {
+                      "text": "查看生产商",
+                      "bold": true
+                    },
+                    {
+                      "text": "，我们可以看到从后端获取的所有生产商： 下面展示的就是从后端获取的制造商，并且我们可以对其进行修改和删除操作。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/getters.js",
+          "display": true,
+          "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": "抽取 Getters 逻辑"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "我们首先创建了 "
+                    },
+                    {
+                      "text": "src/store/getters.js",
+                      "code": true
+                    },
+                    {
+                      "text": "用于存放各种不同类型的 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性和方法。这里我们导出了两个对象分别为 "
+                    },
+                    {
+                      "text": "productGetters",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "manufacturerGetters",
+                      "code": true
+                    },
+                    {
+                      "text": "，前者包含了有关商品的 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性与方法，后者包含了有关制造商的 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性与方法。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/getters.js",
+              "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "在 "
+                    },
+                    {
+                      "text": "productGetters",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象中定义的就是有关商品的 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性和方法，如 "
+                    },
+                    {
+                      "text": "allProducts",
+                      "code": true
+                    },
+                    {
+                      "text": "，"
+                    },
+                    {
+                      "text": "productById",
+                      "code": true
+                    },
+                    {
+                      "text": " 等等；在 "
+                    },
+                    {
+                      "text": "manufacturerGetters",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象中定义的就是有关制造商的 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性和方法，如 "
+                    },
+                    {
+                      "text": "allManufacturers",
+                      "code": true
+                    },
+                    {
+                      "text": " 等等。"
+                    }
+                  ]
+                },
+                {
+                  "type": "note",
+                  "level": "default",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "我们可以采用属性调用和方法调用的方式调用这里的 getter (根据我们在 getter 对象中定义的是属性还是方法)"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/mutation.js",
+          "display": true,
+          "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "抽取 Mutations 逻辑"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "同样的我们创建了 "
+                    },
+                    {
+                      "text": "src/store/mutations.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，用于存放从 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 实例的 "
+                    },
+                    {
+                      "text": "mutations",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性中抽取出来的各种 "
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性，这里我们定义了三个对象分别为 "
+                    },
+                    {
+                      "text": "productMutations",
+                      "code": true
+                    },
+                    {
+                      "text": "，"
+                    },
+                    {
+                      "text": "cartMutations",
+                      "code": true
+                    },
+                    {
+                      "text": " 以及 "
+                    },
+                    {
+                      "text": "manufacturerMutations",
+                      "code": true
+                    },
+                    {
+                      "text": "。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/mutation.js",
+              "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "在 productMutations 对象中定义了有关商品响应 Vue 视图层以及 avtion 中提交的事件，比如 ALL_PRODUCTS，ALL_PRODUCTS_SUCCESS，PRODUCT_BY_ID 以及 PRODUCT_BY_ID_SUCCESS 等等。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "在 cartMutations 对象中定义了有关购物车响应 Vue 视图层提交的事件，比如 ADD_TO_CART，REMOVE_FROM_CART 等等。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "在 manufacturerMutations 对象中定义了有关制造商响应 Vue 视图层以及 avtion 中提交的事件，比如 ALL_MANUFACTURERS，ALL_MANUFACTURERS_SUCCESS，REMOVE_MANUFACTURER 以及 REMOVE_MANUFACTURER_SUCCESS 等等。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/index.js",
+          "display": true,
+          "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": "重构 Store 实例"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "我们将 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": "实例中的 "
+                    },
+                    {
+                      "text": "Getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性和 "
+                    },
+                    {
+                      "text": "Mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性抽出之后要再进行导入。再回到 "
+                    },
+                    {
+                      "text": "src/store/index.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，这里就是抽离 "
+                    },
+                    {
+                      "text": "getters",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "mutations",
+                      "code": true
+                    },
+                    {
+                      "text": " 逻辑之后的 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 实例，看起来是不是轻盈了很多，也增强了代码的可读性。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/index.js",
+              "commit": "283368c788475969f24c861547cb9f23b1c9d1db",
+              "hiddenLines": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  10,
+                  17
+                ],
+                [
+                  74,
+                  81
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "这里首先导入了 "
+                    },
+                    {
+                      "text": "getters",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "mutations",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件中导出的所有对象，然后在 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 实例的 "
+                    },
+                    {
+                      "text": "getters",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "mutations",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性中通过对象展开运算符的方式将对应的属性和方法导入到 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 实例中。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "除此之外我们又在 "
+                    },
+                    {
+                      "text": "actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 中添加了一些其他的 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性，因为此时 "
+                    },
+                    {
+                      "text": "actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 还未被抽离，所以可能依然显得有些臃肿，不过在后面我们马上也会将它抽离出来。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "heading-three",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "小结"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "这一节我们学习了如何抽出 "
+                },
+                {
+                  "text": "Getters",
+                  "code": true
+                },
+                {
+                  "text": " 和 "
+                },
+                {
+                  "text": "Mutations",
+                  "code": true
+                },
+                {
+                  "text": " 逻辑，减轻 "
+                },
+                {
+                  "text": "store",
+                  "code": true
+                },
+                {
+                  "text": " 实例中的负载："
+                }
+              ]
+            },
+            {
+              "type": "bulleted-list",
+              "children": [
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "首先我们需要分别创建 "
+                    },
+                    {
+                      "text": "getters",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "mutations",
+                      "code": true
+                    },
+                    {
+                      "text": "JS 文件，在两个 JS 文件中分别定义不同类型的 "
+                    },
+                    {
+                      "text": "getters",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "mutations",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象并导出，然后在 "
+                    },
+                    {
+                      "text": "getters",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "mutations",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象中定义相应的一些属性和方法。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "在 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 的 "
+                    },
+                    {
+                      "text": "index",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件中导入这些 "
+                    },
+                    {
+                      "text": "getters",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "mutations",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象，并在 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 实例的 "
+                    },
+                    {
+                      "text": "getters",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "mutations",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性中通过对象展开运算符混入这些对象。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们可以使用 "
+                    },
+                    {
+                      "text": "this.$store.getters.属性",
+                      "code": true
+                    },
+                    {
+                      "text": "和 "
+                    },
+                    {
+                      "text": "this.$store.mutations.属性",
+                      "code": true
+                    },
+                    {
+                      "text": "的方式调用."
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "commit": "227052be75ff543fef5ea123d3d7a29b06234c83",
+      "id": "9a29b816",
+      "articleId": "083aea8d",
+      "type": "step",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "227052be75ff543fef5ea123d3d7a29b06234c83",
+          "id": "72deecd9",
+          "fixed": true,
+          "children": [
+            {
+              "text": "抽出 Actions 逻辑"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "上一步我们学习了如何抽出 "
+                },
+                {
+                  "text": "Getters",
+                  "code": true
+                },
+                {
+                  "text": " 和 "
+                },
+                {
+                  "text": "Mutations",
+                  "code": true
+                },
+                {
+                  "text": " 逻辑，这一步我们以同样的方式抽出 "
+                },
+                {
+                  "text": "Actions",
+                  "code": true
+                },
+                {
+                  "text": " 逻辑。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/admin/Edit.vue",
+          "display": true,
+          "commit": "227052be75ff543fef5ea123d3d7a29b06234c83",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "重构 Edit 组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "src/pages/admin/Edit.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 是商品编辑组件，当触发"
+                    },
+                    {
+                      "text": "'/admin/edit/' + product._id",
+                      "code": true
+                    },
+                    {
+                      "text": " 就会路由到指定商品信息编辑页面，然后对商品信息进行修改。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "之前我们直接将展示商品信息的代码放在该组件中，但是我们发现展示商品信息这部分功能在新建商品和编辑商品组件中都需要使用，因此我们打算把这部分代码封装为一个展示商品信息的表单组件 "
+                    },
+                    {
+                      "text": "ProductForm",
+                      "code": true
+                    },
+                    {
+                      "text": "，这样的话我们在新建商品和编辑商品组件中都能复用该组件。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "除此之外我们还在该组件中添加了数据处理功能。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/admin/Edit.vue",
+              "commit": "227052be75ff543fef5ea123d3d7a29b06234c83",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们先来看该组件的 "
+                    },
+                    {
+                      "text": "script",
+                      "code": true
+                    },
+                    {
+                      "text": " 部分，首先定义了两个计算属性 "
+                    },
+                    {
+                      "text": "model",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "manufacturers",
+                      "code": true
+                    },
+                    {
+                      "text": " 返回本地商品和制造商。通过方法访问的方式调用指定的 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性 "
+                    },
+                    {
+                      "text": "productById",
+                      "code": true
+                    },
+                    {
+                      "text": "，参数为当前处于激活状态的路由对象的 id，这里返回 "
+                    },
+                    {
+                      "text": "product",
+                      "code": true
+                    },
+                    {
+                      "text": " 的拷贝，是为了在修改 "
+                    },
+                    {
+                      "text": "product",
+                      "code": true
+                    },
+                    {
+                      "text": " 的拷贝之后，在保存之前不修改本地 Vuex store 的 "
+                    },
+                    {
+                      "text": "product",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性。计算属性 "
+                    },
+                    {
+                      "text": "manufacturers",
+                      "code": true
+                    },
+                    {
+                      "text": " 通过相同的方式获取本地数据。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "当该组件刚被创建时判断计算属性 "
+                    },
+                    {
+                      "text": "model",
+                      "code": true
+                    },
+                    {
+                      "text": " 中是否有值，如果没有则表示本地中没有该商品，将包含该商品 id 的对象作为载荷分发到类型为 "
+                    },
+                    {
+                      "text": "productById",
+                      "code": true
+                    },
+                    {
+                      "text": " 的 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，在 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 中进行异步操作从后端获取对应商品，并提交到对应类型的 "
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，在 "
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 中将获取到的商品保存到本地。除此之外判断计算属性 "
+                    },
+                    {
+                      "text": "manufacturers",
+                      "code": true
+                    },
+                    {
+                      "text": " 中是否有值，如果没有则通过相同的方式从后端获取并保存到本地。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "在 "
+                    },
+                    {
+                      "text": "template",
+                      "code": true
+                    },
+                    {
+                      "text": " 中使用了子组件 "
+                    },
+                    {
+                      "text": "ProductForm",
+                      "code": true
+                    },
+                    {
+                      "text": " 用表单的形式来展示商品信息，当用户提交表单则会向父组件发射 "
+                    },
+                    {
+                      "text": "save-product",
+                      "code": true
+                    },
+                    {
+                      "text": " 事件，父组件监听到之后触发 "
+                    },
+                    {
+                      "text": "updateProduct",
+                      "code": true
+                    },
+                    {
+                      "text": " 事件，并将传入的商品参数作为载荷分发到类型为 "
+                    },
+                    {
+                      "text": "updateProduct",
+                      "code": true
+                    },
+                    {
+                      "text": " 的 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，通知后端进行同步更新数据并提交到对应的 "
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 中进行本地数据更新。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/admin/New.vue",
+          "display": true,
+          "commit": "227052be75ff543fef5ea123d3d7a29b06234c83",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "重构 New 组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "src/pages/admin/New.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 是添加商品组件，与 "
+                    },
+                    {
+                      "text": "Edit",
+                      "code": true
+                    },
+                    {
+                      "text": " 组件的代码逻辑相似，只是一个是修改商品信息，一个是添加商品信息。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们将该组件中原先写死的数据改成了从后端动态获取， 并将获取的数据传递给子组件 "
+                    },
+                    {
+                      "text": "ProductForm。",
+                      "code": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/admin/New.vue",
+              "commit": "227052be75ff543fef5ea123d3d7a29b06234c83",
+              "hiddenLines": [
+                [
+                  0,
+                  5
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "该组件代码逻辑和 "
+                    },
+                    {
+                      "text": "Edit.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 组件相似，只是在这里我们定义的计算属性 "
+                    },
+                    {
+                      "text": "model",
+                      "code": true
+                    },
+                    {
+                      "text": " 返回一个空对象作为默认值，因为我们是添加商品，本地中还不存在该商品。"
+                    },
+                    {
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/actions.js",
+          "display": true,
+          "commit": "227052be75ff543fef5ea123d3d7a29b06234c83",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "抽取 Actions 逻辑"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "像之前一样我们创建了 "
+                    },
+                    {
+                      "text": "src/store/actions.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，用于存储从 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 实例的 "
+                    },
+                    {
+                      "text": "actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性中抽取出来的不同类型的 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性。这里我们定义了两个 "
+                    },
+                    {
+                      "text": "Actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象："
+                    },
+                    {
+                      "text": "productActions",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "manufacturerActions",
+                      "code": true
+                    },
+                    {
+                      "text": "，分别表示有关商品和制造商对视图层分发的事件作出的响应，并导出了这两个对象。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/actions.js",
+              "commit": "227052be75ff543fef5ea123d3d7a29b06234c83",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "在该文件中我们首先导入 "
+                    },
+                    {
+                      "text": "axios",
+                      "code": true
+                    },
+                    {
+                      "text": " 依赖，以及定义了 "
+                    },
+                    {
+                      "text": "API_BASE",
+                      "code": true
+                    },
+                    {
+                      "text": " 后端接口根路由；"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "然后我们定义并导出了两个对象："
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "在 "
+                        },
+                        {
+                          "text": "productActions",
+                          "code": true
+                        },
+                        {
+                          "text": " 对象中定义了一些有关商品在视图层分发对应的事件时，"
+                        },
+                        {
+                          "text": "action",
+                          "code": true
+                        },
+                        {
+                          "text": " 作出的响应，比如 "
+                        },
+                        {
+                          "text": "allProducts",
+                          "code": true
+                        },
+                        {
+                          "text": "，"
+                        },
+                        {
+                          "text": "productById",
+                          "code": true
+                        },
+                        {
+                          "text": "，"
+                        },
+                        {
+                          "text": "removeProduct",
+                          "code": true
+                        },
+                        {
+                          "text": " 以及 "
+                        },
+                        {
+                          "text": "updateProduct",
+                          "code": true
+                        },
+                        {
+                          "text": " 等等。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "在 "
+                        },
+                        {
+                          "text": "manufacturerActions",
+                          "code": true
+                        },
+                        {
+                          "text": " 对象中定义了一些有关制造商在视图层分发对应的事件时，"
+                        },
+                        {
+                          "text": "action",
+                          "code": true
+                        },
+                        {
+                          "text": " 作出的响应，比如 "
+                        },
+                        {
+                          "text": "allManufacturers",
+                          "code": true
+                        },
+                        {
+                          "text": "，"
+                        },
+                        {
+                          "text": "removeManufacturer",
+                          "code": true
+                        },
+                        {
+                          "text": " 等等。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/index.js",
+          "display": true,
+          "commit": "227052be75ff543fef5ea123d3d7a29b06234c83",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "重构 Store 实例"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们再次来到 "
+                    },
+                    {
+                      "text": "src/store/index.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件中，添加有关抽取 "
+                    },
+                    {
+                      "text": "Actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 逻辑之后的信息。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/index.js",
+              "commit": "227052be75ff543fef5ea123d3d7a29b06234c83",
+              "hiddenLines": [
+                [
+                  0,
+                  3
+                ],
+                [
+                  12,
+                  27
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "这里我们首先导入了 "
+                    },
+                    {
+                      "text": "actions.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件中导出的一些 Action 对象，并通过对象展开运算符在 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 实例的 "
+                    },
+                    {
+                      "text": "actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性中混入了不同类型的 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性，实现了 Actions 逻辑的抽取。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/mutation.js",
+          "display": true,
+          "commit": "227052be75ff543fef5ea123d3d7a29b06234c83",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "添加 mutations 属性"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们在 "
+                    },
+                    {
+                      "text": "src/store/mutations.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件中又添加了一些 "
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性，用于用户进行不同的操作进行本地数据的同步。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/mutation.js",
+              "commit": "227052be75ff543fef5ea123d3d7a29b06234c83",
+              "hiddenLines": [
+                [
+                  0,
+                  23
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "上述添加的都是有关商品的 mutation 属性：UPDATE_PRODUCT，UPDATE_PRODUCT_SUCCESS，ADD_PRODUCT 以及 ADD_PRODUCT_SUCCESS 分别表示更新商品信息，更新商品信息成功，添加商品以及添加商品成功。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "heading-three",
+              "children": [
+                {
+                  "text": "小结"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "这一步我们学习了如何抽出 "
+                },
+                {
+                  "text": "Actions:",
+                  "code": true
+                }
+              ]
+            },
+            {
+              "type": "bulleted-list",
+              "children": [
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": "",
+                      "code": true
+                    },
+                    {
+                      "text": "首先我们需要创建 "
+                    },
+                    {
+                      "text": "actions",
+                      "code": true
+                    },
+                    {
+                      "text": "JS 文件，在文件中定义不同类型的 "
+                    },
+                    {
+                      "text": "Actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象并导出，然后在 "
+                    },
+                    {
+                      "text": "Actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象中定义相应的一些属性。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "在 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 的 "
+                    },
+                    {
+                      "text": "index",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件中导入这些 "
+                    },
+                    {
+                      "text": "Actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象，并在 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 实例的 "
+                    },
+                    {
+                      "text": "actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性中通过对象展开运算符混入这些对象。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们可以使用 "
+                    },
+                    {
+                      "text": "this.$store.actions.属性",
+                      "code": true
+                    },
+                    {
+                      "text": "的方式调用。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+      "id": "a23a0295",
+      "articleId": "083aea8d",
+      "type": "step",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+          "id": "2645d3ed",
+          "fixed": true,
+          "children": [
+            {
+              "text": "干掉 mutation-types 硬编码"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "这一步我们主要是进一步完善我们的项目功能以及去掉一些硬编码。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/components/ManufacturerForm.vue",
+          "display": true,
+          "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "创建 ManufacturerForm 组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "和商品信息展示功能一样，我们也需要将制造商信息展示部分封装到一个单独的组件 "
+                    },
+                    {
+                      "text": "ManufacturerForm",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，以便我们在新建制造商和编辑制造商组件中都能复用该组件。"
+                    },
+                    {
+                      "text": "\n"
+                    },
+                    {
+                      "text": "因此我们创建了 "
+                    },
+                    {
+                      "text": "src/components/ManufacturerForm.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，用于展示制造商信息的表单组件。"
+                    },
+                    {
+                      "text": "\n"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/components/ManufacturerForm.vue",
+              "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "该组件通过父子组件传值从父组件获取到了 "
+                    },
+                    {
+                      "text": "model",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "isEditing",
+                      "code": true
+                    },
+                    {
+                      "text": " 的值，并将 "
+                    },
+                    {
+                      "text": "model",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象的信息展示在表单中。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "表单信息中还通过 "
+                    },
+                    {
+                      "text": "v-if",
+                      "code": true
+                    },
+                    {
+                      "text": " 来判断 "
+                    },
+                    {
+                      "text": "isEditing",
+                      "code": true
+                    },
+                    {
+                      "text": " 的值是 "
+                    },
+                    {
+                      "text": "true",
+                      "code": true
+                    },
+                    {
+                      "text": " 还是 "
+                    },
+                    {
+                      "text": "false",
+                      "code": true
+                    },
+                    {
+                      "text": "，如果是 "
+                    },
+                    {
+                      "text": "true",
+                      "code": true
+                    },
+                    {
+                      "text": " 则创建 "
+                    },
+                    {
+                      "text": "Update Manufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": "，反之创建 "
+                    },
+                    {
+                      "text": "Add Manufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": "。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "当用户提交表单时触发 "
+                    },
+                    {
+                      "text": "saveManufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " 事件，此时会向父组件发送类型为 "
+                    },
+                    {
+                      "text": "save-manufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " 的事件通知其保存此次的修改操作。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/getters.js",
+          "display": true,
+          "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "重构 getters 文件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "在创建编辑制造商组件之前，我们需要在 getters 文件中添加对应的 getter 属性。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们在 "
+                    },
+                    {
+                      "text": "src/store/getters.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件的 "
+                    },
+                    {
+                      "text": "manufacturerGetters",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象中又添加了一个 "
+                    },
+                    {
+                      "text": "manufacturerById",
+                      "code": true
+                    },
+                    {
+                      "text": " 方法，用于获取本地中指定的制造商。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/getters.js",
+              "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+              "hiddenLines": [
+                [
+                  0,
+                  12
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "manufacturerById",
+                      "code": true
+                    },
+                    {
+                      "text": " 方法中的 id 参数是 Vue 视图层通过方法调用时传入的 id，通过这个 id 判断本地中是否存在该制造商，如果存在则返回该制造商，如果不存在则返回一个空对象。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/admin/EditManufacturers.vue",
+          "display": true,
+          "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "创建 EditManufacturers 组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "在创建了展示制造商信息的表单组件 "
+                    },
+                    {
+                      "text": "ManufacturerForm",
+                      "code": true
+                    },
+                    {
+                      "text": " 以及添加了用于获取本地指定制造商数据的 getter 属性之后，紧接着我们又创建了 "
+                    },
+                    {
+                      "text": "src/pages/admin/EditManufacturers.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，用于修改制造商信息。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/admin/EditManufacturers.vue",
+              "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "该组件刚被创建时将当前处于激活状态的路由对象的 id 参数作为载荷分发到类型为 "
+                    },
+                    {
+                      "text": "manufacturerById",
+                      "code": true
+                    },
+                    {
+                      "text": " 的 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，在 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 中进行异步操作从服务器获取对应制造商，然后将该制造商提交到对应 "
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 中进行本地状态修改，将获取到的制造商保存到本地。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们定义了计算属性 "
+                    },
+                    {
+                      "text": "model",
+                      "code": true
+                    },
+                    {
+                      "text": " 返回 "
+                    },
+                    {
+                      "text": "manufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " 的拷贝，是为了在修改 "
+                    },
+                    {
+                      "text": "manufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " 的拷贝之后，在保存之前不修改本地 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 中的 "
+                    },
+                    {
+                      "text": "manufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性。这里以方法访问的形式从 "
+                    },
+                    {
+                      "text": "getters",
+                      "code": true
+                    },
+                    {
+                      "text": " 中通过当前激活的路由对象中的 id 参数获取本地状态中的对应制造商作为 "
+                    },
+                    {
+                      "text": "manufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " 的拷贝，并返回给计算属性 "
+                    },
+                    {
+                      "text": "model",
+                      "code": true
+                    },
+                    {
+                      "text": "，然后传给子组件 "
+                    },
+                    {
+                      "text": "ManufacturerForm",
+                      "code": true
+                    },
+                    {
+                      "text": "。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "该组件在 "
+                    },
+                    {
+                      "text": "addManufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " 事件中将子组件传入的新制造商对象作为载荷分发到类型为 "
+                    },
+                    {
+                      "text": "updateManufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " 的 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，在 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 中进行异步操作修改后端对应的商品信息，然后将新对象提交到对应的 "
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 中进行本地状态修改，修改本地状态中的 "
+                    },
+                    {
+                      "text": "manufacturer",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/admin/NewManufacturers.vue",
+          "display": true,
+          "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "创建 NewManufacturers 组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "同样的我们继续创建了 "
+                    },
+                    {
+                      "text": "src/pages/admin/NewManufacturers.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，用于添加制造商信息。该组件和添加商品信息组件代码逻辑类似。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/admin/NewManufacturers.vue",
+              "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "该组件逻辑代码与 "
+                    },
+                    {
+                      "text": "New.vue",
+                      "code": true
+                    },
+                    {
+                      "text": "组件类似，一个是添加商品组件，一个是添加制造商组件，您可以对比着来看。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "这里我template模板中忘了写了，后面会补上。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/admin/Index.vue",
+          "display": true,
+          "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "重构 Admin 入口文件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "之前我们在该入口文件中增加了"
+                    },
+                    {
+                      "text": "查看生产商",
+                      "bold": true
+                    },
+                    {
+                      "text": "导航，这里我们又增加了"
+                    },
+                    {
+                      "text": "添加生产商",
+                      "bold": true
+                    },
+                    {
+                      "text": "导航。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/admin/Index.vue",
+              "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+              "hiddenLines": [
+                [
+                  0,
+                  11
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/router/index.js",
+          "display": true,
+          "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "添加路由信息"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们已经创建了添加和修改制造商组件以及添加了对应的入口导航，接着我们需要在该文件中对其进行路由参数配置。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "再次进入 "
+                    },
+                    {
+                      "text": "src/router/index.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，我们导入了添加制造商和修改制造商的组件并配置了相关路由参数。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/router/index.js",
+              "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+              "hiddenLines": [
+                [
+                  0,
+                  8
+                ],
+                [
+                  17,
+                  44
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "这里添加制造商的路由配置就是静态路由的配置方式；修改制造商的路由配置采用了动态传参的方式，这里使用的是 "
+                    },
+                    {
+                      "text": "$route.params",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象的 "
+                    },
+                    {
+                      "text": "Post",
+                      "code": true
+                    },
+                    {
+                      "text": " 方式传参。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "配置好添加制造商和修改制造商的路由参数之后，我们又可以进行验收啦，运行项目，点击 Admin 然后再点击添加制造商，我们可以看到添加制造商的表单。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "然后再点击查看制造商，我们又可以看到一系列的制造商，并且每个制造商都对应的有修改和删除操作，这里我们随便选择一个制造商进行修改，就会看到该制造商的表单信息："
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/mutation-types.js",
+          "display": true,
+          "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "创建 mutation-types 文件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们都知道在 "
+                    },
+                    {
+                      "text": "actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件和 "
+                    },
+                    {
+                      "text": "mutations",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件中有一部分的事件类型是需要保持一致的，比如在我们在视图层分发一个添加商品事件 "
+                    },
+                    {
+                      "text": "ADD_PRODUCT",
+                      "code": true
+                    },
+                    {
+                      "text": "，在 "
+                    },
+                    {
+                      "text": "actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件中就需要有对应事件类型的 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 接收，然后向后端发起请求并将请求结果提交到对应类型的 "
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，这就要求了这几个文件中的对应事件类型都要保持一致。可是我们在开发过程中难免会出错，比如漏掉一个字母就会导致两个文件中的对应事件无法接收，尴尬的是控制台也没有报错，这就造成了我们很难查错。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "因此，我们采用了字符串常量的形式定义 "
+                    },
+                    {
+                      "text": "actions",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件和 "
+                    },
+                    {
+                      "text": "mutations",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件中的事件类型，只要我们写错一个单词都会导致字符串常量不一致，关键的是这个时候会报错，利于我们查错。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "进而我们创建了 "
+                    },
+                    {
+                      "text": "src/store/mutation-types.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，用于定义一些字符串常量来表示各种事件类型，并导出这些字符串常量。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/mutation-types.js",
+              "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/actions.js",
+          "display": true,
+          "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "重构 actions 文件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们再次来到 "
+                    },
+                    {
+                      "text": "src/store/actions.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件中，将所有的事件类型用字符串常量表示。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/actions.js",
+              "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+              "hiddenLines": [
+                [
+                  87,
+                  88
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "这里我们首先导入了 "
+                    },
+                    {
+                      "text": "mutation-types",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件中定义的一些字符串常量，替换掉了对应的事件类型。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/mutation.js",
+          "display": true,
+          "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "重构 mutations 文件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "同 actions 文件一样，我们再次进入 "
+                    },
+                    {
+                      "text": "src/store/mutations.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，将文件中的各种事件类型用字符串常量替代。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/mutation.js",
+              "commit": "c836df81d1e432cb5497e977b68f4f45d7f3ac51",
+              "hiddenLines": [
+                [
+                  67,
+                  72
+                ],
+                [
+                  85,
+                  86
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "这里我们首先导入了 "
+                    },
+                    {
+                      "text": "mutation-types",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件中定义的一些字符串常量，替换掉了对应的事件类型。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "这里我遗漏了ALL_PRODUCTS和ALL_PRODUCTS_SUCCESS在后面会补上"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "heading-three",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "小结"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "这一节我们主要做了以下工作："
+                }
+              ]
+            },
+            {
+              "type": "bulleted-list",
+              "children": [
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "创建了制造商相关组件并配置了相应路由参数，实现了新建和修改制造商信息；"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "利用字符串常量代替 actions 文件和 mutations 文件中的事件类型；"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "commit": "1958a0722348cae2c9eb86b7680426fa02cca25e",
+      "id": "e085a74f",
+      "articleId": "083aea8d",
+      "type": "step",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "1958a0722348cae2c9eb86b7680426fa02cca25e",
+          "id": "13189905",
+          "fixed": true,
+          "children": [
+            {
+              "text": "修改bug"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/mutation.js",
+          "display": true,
+          "commit": "1958a0722348cae2c9eb86b7680426fa02cca25e",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "修复了mutations文件遗漏ALL_PRODUCTS和ALL_PRODUCTS_SUCCESS的bug。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/mutation.js",
+              "commit": "1958a0722348cae2c9eb86b7680426fa02cca25e",
+              "hiddenLines": [
+                [
+                  0,
+                  7
+                ],
+                [
+                  16,
+                  18
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "commit": "ed6a24d060d209fd61deee5033f3e1642bfbc3de",
+      "id": "e169fe5f",
+      "articleId": "083aea8d",
+      "type": "step",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "ed6a24d060d209fd61deee5033f3e1642bfbc3de",
+          "id": "5c222573",
+          "fixed": true,
+          "children": [
+            {
+              "text": "修改 NewManufacturers 组件"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/admin/NewManufacturers.vue",
+          "display": true,
+          "commit": "ed6a24d060d209fd61deee5033f3e1642bfbc3de",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "修复了NewManufacturers文件中模板遗漏bug。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/admin/NewManufacturers.vue",
+              "commit": "ed6a24d060d209fd61deee5033f3e1642bfbc3de",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
                 }
               ]
             }
