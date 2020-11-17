@@ -1,9 +1,10 @@
 <template>
-
+  <manufacturer-form @save-manufacturer="addManufacturer" :model="model"></manufacturer-form>
 </template>
 
 <script>
 import ManufacturerForm from '@/components/ManufacturerForm'
+import ManufacturerForm from '../../components/ManufacturerForm.vue'
 export default {
   components: {
     'manufacturer-form': ManufacturerForm
