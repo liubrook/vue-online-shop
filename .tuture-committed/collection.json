@@ -29,6 +29,15 @@
       "topics": [],
       "categories": [],
       "cover": ""
+    },
+    {
+      "id": "17821a13",
+      "created": "2020-11-17T07:15:36.185Z",
+      "name": "从零到部署：用 Vue 和 Express 实现迷你全栈电商应用（四）",
+      "topics": [],
+      "categories": [],
+      "cover": "",
+      "description": "组件化和逻辑复用能帮助写出简洁易懂的代码，随着应用越写越复杂，我们有必要把视图层中重复的逻辑抽成组件，以求在多个页面中复用；同时对于 Vuex 端，Store 中的逻辑也会越来越臃肿，我们有必要使用 Vuex 提供的 Getters 来复用本地数据获取逻辑。在这篇教程中，我们将带领你抽出 Vue 组件简化页面逻辑，使用 Vuex Getters 复用本地数据获取逻辑。"
     }
   ],
   "steps": [
@@ -6591,6 +6600,2148 @@
                     },
                     {
                       "text": " 中。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "commit": "d745eba301948239a838dc62e555c6163796b8bb",
+      "id": "4af96f98",
+      "articleId": "17821a13",
+      "type": "step",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "d745eba301948239a838dc62e555c6163796b8bb",
+          "id": "35d35538",
+          "fixed": true,
+          "children": [
+            {
+              "text": "使用 Vue 组件简化页面逻辑"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "原文地址",
+                  "link": true,
+                  "url": "https://tuture.co/2020/02/11/6f96d15/"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "在前面的教程中，我们已经学习了如何使用 Vuex 进行状态管理，如何使用 Action 获取远程数据以及如何使用 Mutation 修改本地状态，实现了用户修改客户端数据的同时，同步更新后端数据，然后更新本地数据，最后进行重新渲染。"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "这一节我们将进一步通过 Vue 组件化的思想简化复杂的页面逻辑。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "manufacturers.json",
+          "display": true,
+          "commit": "d745eba301948239a838dc62e555c6163796b8bb",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "如果你之前没有在"
+                    },
+                    {
+                      "text": "第二篇教程",
+                      "url": "https://brookliu.xyz/2020/01/20/%E4%BB%8E%E9%9B%B6%E5%88%B0%E9%83%A8%E7%BD%B2%EF%BC%9A%E7%94%A8-Vue-%E5%92%8C-Express-%E5%AE%9E%E7%8E%B0%E8%BF%B7%E4%BD%A0%E5%85%A8%E6%A0%88%E7%94%B5%E5%95%86%E5%BA%94%E7%94%A8%EF%BC%88%E4%BA%8C%EF%BC%89/#more",
+                      "link": true
+                    },
+                    {
+                      "text": "中测试过，很有可能你的数据库是空的，那么可以下载我们提供的 MongoDB JSON 数据文件："
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "manufacturers.json",
+                      "link": true,
+                      "url": "https://raw.githubusercontent.com/tuture-dev/vue-online-shop-backend/master/data/manufacturers.json"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "manufacturers.json",
+              "commit": "d745eba301948239a838dc62e555c6163796b8bb",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "products.json",
+          "display": true,
+          "commit": "d745eba301948239a838dc62e555c6163796b8bb",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "products.json",
+                      "link": true,
+                      "url": "https://raw.githubusercontent.com/tuture-dev/vue-online-shop-backend/master/data/products.json"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "products.json",
+              "commit": "d745eba301948239a838dc62e555c6163796b8bb",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "然后运行以下命令："
+                    }
+                  ]
+                },
+                {
+                  "type": "code-block",
+                  "children": [
+                    {
+                      "type": "code-line",
+                      "children": [
+                        {
+                          "text": "mongoimport -d test -c manufacturers manufacturers.json"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "code-line",
+                      "children": [
+                        {
+                          "text": "mongoimport -d test -c products products.json"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/components/products/ProductButton.vue",
+          "display": true,
+          "commit": "d745eba301948239a838dc62e555c6163796b8bb",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": "实现 ProductButton 组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "我们打开 "
+                    },
+                    {
+                      "text": "src/components/products/ProductButton.vue",
+                      "code": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/components/products/ProductButton.vue",
+              "commit": "d745eba301948239a838dc62e555c6163796b8bb",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ],
+              "hideDiff": false
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "该组件通过 "
+                    },
+                    {
+                      "text": "v-if",
+                      "code": true
+                    },
+                    {
+                      "text": " 判断 "
+                    },
+                    {
+                      "text": "isAdding",
+                      "code": true
+                    },
+                    {
+                      "text": " 是否为 "
+                    },
+                    {
+                      "text": "true",
+                      "code": true
+                    },
+                    {
+                      "text": " 来决定创建加入购物车按钮还是从购物车移除按钮。"
+                    },
+                    {
+                      "text": "cart",
+                      "code": true
+                    },
+                    {
+                      "text": " 数组是通过 "
+                    },
+                    {
+                      "text": "this.$store.state.cart",
+                      "code": true
+                    },
+                    {
+                      "text": " 从本地获取的。在 "
+                    },
+                    {
+                      "text": "isAdding",
+                      "code": true
+                    },
+                    {
+                      "text": " 中我们先令其为 "
+                    },
+                    {
+                      "text": "true",
+                      "code": true
+                    },
+                    {
+                      "text": "，然后通过 "
+                    },
+                    {
+                      "text": "cart",
+                      "code": true
+                    },
+                    {
+                      "text": " 数组的 "
+                    },
+                    {
+                      "text": "map",
+                      "code": true
+                    },
+                    {
+                      "text": " 方法遍历数组，判断当前商品是否在购物车中，如果不在则 "
+                    },
+                    {
+                      "text": "isAdding",
+                      "code": true
+                    },
+                    {
+                      "text": " 为 "
+                    },
+                    {
+                      "text": "true",
+                      "code": true
+                    },
+                    {
+                      "text": "，创建加入购物车按钮；如果在则 "
+                    },
+                    {
+                      "text": "isAdding",
+                      "code": true
+                    },
+                    {
+                      "text": " 为 "
+                    },
+                    {
+                      "text": "false",
+                      "code": true
+                    },
+                    {
+                      "text": "，创建从购物车移除按钮。"
+                    },
+                    {
+                      "text": "\n"
+                    },
+                    {
+                      "text": "对应的两个按钮添加了两个点击事件："
+                    },
+                    {
+                      "text": "addToCart",
+                      "code": true
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "text": "removeFromCart",
+                      "code": true
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": "当点击加入购物车按钮时触发 addToCart，我们通过 this.$store.commit 的方式将包含当前商品的对象作为载荷直接提交到类型为 ADD_TO_CART 的 mutation 中，将该商品添加到本地购物车中。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": "当点击从购物车移除按钮时触发 removeFromCart，我们也是通过 this.$store.commit 的方式将包含当前商品 id 的对象作为载荷直接提交到类型为 REMOVE_FROM_CART 的 mutation 中，将该商品从本地购物车中移除。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/components/products/ProductItem.vue",
+          "display": true,
+          "commit": "d745eba301948239a838dc62e555c6163796b8bb",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": "实现 ProductItem 组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "src/components/products/ProductItem.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件为商品信息组件，用来展示商品详细信息，并且注册了上面讲的按钮组件，改变商品在购物车中的状态，除此之外我们还使用了之前创建好的 "
+                    },
+                    {
+                      "text": "ProductButton",
+                      "code": true
+                    },
+                    {
+                      "text": " 组件，实现对商品在购物车中的状态进行修改。"
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "首先通过 "
+                        },
+                        {
+                          "text": "import ProductButton from './ProductButton'",
+                          "code": true
+                        },
+                        {
+                          "text": " 导入创建好的 "
+                        },
+                        {
+                          "text": "ProductButton",
+                          "code": true
+                        },
+                        {
+                          "text": " 组件。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "然后在 "
+                        },
+                        {
+                          "text": "components",
+                          "code": true
+                        },
+                        {
+                          "text": " 中注册组件。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": ""
+                        },
+                        {
+                          "text": "最后在模板中使用该组件。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/components/products/ProductItem.vue",
+              "commit": "d745eba301948239a838dc62e555c6163796b8bb",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "可以看到，我们将父组件传入的 "
+                    },
+                    {
+                      "text": "product",
+                      "code": true
+                    },
+                    {
+                      "text": "对象展示到模板中，并将该 "
+                    },
+                    {
+                      "text": "product",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象传到子组件 "
+                    },
+                    {
+                      "text": "ProductButton",
+                      "code": true
+                    },
+                    {
+                      "text": " 中。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/components/products/ProductList.vue",
+          "display": true,
+          "commit": "d745eba301948239a838dc62e555c6163796b8bb",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "重构 ProductList 组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "有了 ProductButton 和 ProductItem，我们便可以来重构之前略显臃肿的 ProductList 组件了，修改 "
+                    },
+                    {
+                      "text": "src/components/products/ProductList.vue",
+                      "code": true
+                    },
+                    {
+                      "text": "，代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/components/products/ProductList.vue",
+              "commit": "d745eba301948239a838dc62e555c6163796b8bb",
+              "hiddenLines": [
+                [
+                  0,
+                  3
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "这部分代码是将之前展示商品信息的逻辑代码封装到了子组件 "
+                    },
+                    {
+                      "text": "ProductItem",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，然后导入并注册子组件 "
+                    },
+                    {
+                      "text": "ProductItem",
+                      "code": true
+                    },
+                    {
+                      "text": "，再将子组件挂载到模板中。"
+                    },
+                    {
+                      "text": ""
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "可以看到，我们通过 "
+                    },
+                    {
+                      "text": "this.$store.state.products",
+                      "code": true
+                    },
+                    {
+                      "text": " 从本地获取 "
+                    },
+                    {
+                      "text": "products",
+                      "code": true
+                    },
+                    {
+                      "text": " 数组，并返回给计算属性 "
+                    },
+                    {
+                      "text": "products",
+                      "code": true
+                    },
+                    {
+                      "text": "。然后在模板中利用 "
+                    },
+                    {
+                      "text": "v-for",
+                      "code": true
+                    },
+                    {
+                      "text": " 遍历 "
+                    },
+                    {
+                      "text": "products",
+                      "code": true
+                    },
+                    {
+                      "text": " 数组，并将每个 "
+                    },
+                    {
+                      "text": "product",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象传给每个子组件 "
+                    },
+                    {
+                      "text": "ProductItem",
+                      "code": true
+                    },
+                    {
+                      "text": "，在每个子组件中展示对应的商品信息。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/Cart.vue",
+          "display": true,
+          "commit": "d745eba301948239a838dc62e555c6163796b8bb",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "重构 Cart 组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "最后，我们重构一波购物车组件 "
+                    },
+                    {
+                      "text": "src/pages/Cart.vue",
+                      "code": true
+                    },
+                    {
+                      "text": "，也使用了子组件 "
+                    },
+                    {
+                      "text": "ProductItem",
+                      "code": true
+                    },
+                    {
+                      "text": " 简化了页面逻辑，修改代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/Cart.vue",
+              "commit": "d745eba301948239a838dc62e555c6163796b8bb",
+              "hiddenLines": [
+                [
+                  0,
+                  3
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "这里也是首先导入并注册子组件 "
+                    },
+                    {
+                      "text": "ProductItem",
+                      "code": true
+                    },
+                    {
+                      "text": "，然后在模板中挂载子组件。通过 "
+                    },
+                    {
+                      "text": "this.$store.state.cart",
+                      "code": true
+                    },
+                    {
+                      "text": " 的方式从本地获取购物车数组，并返回给计算属性 "
+                    },
+                    {
+                      "text": "cart",
+                      "code": true
+                    },
+                    {
+                      "text": "。在模板中通过 "
+                    },
+                    {
+                      "text": "v-for",
+                      "code": true
+                    },
+                    {
+                      "text": " 遍历购物车数组，并将购物车中每个商品对象传给对应的子组件 "
+                    },
+                    {
+                      "text": "ProductItem",
+                      "code": true
+                    },
+                    {
+                      "text": "，通过子组件来展示对应的商品信息。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "把项目开起来，查看商品列表，可以看到每个商品下面都增加了 “添加到购物车” 按钮!"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "购物车中，也有了 “移出购物车” 按钮!"
+                    },
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "heading-three",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "小结"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "这一节我们学习了如何使用 Vue 组件来简化页面逻辑："
+                }
+              ]
+            },
+            {
+              "type": "bulleted-list",
+              "children": [
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "首先我们需要通过 "
+                    },
+                    {
+                      "text": "import",
+                      "code": true
+                    },
+                    {
+                      "text": " 的方式导入子组件。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "然后在 "
+                    },
+                    {
+                      "text": "components",
+                      "code": true
+                    },
+                    {
+                      "text": " 中注册子组件。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "最后将子组件挂载到模板中，并将需要子组件展示的数据传给子组件。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+      "id": "1f1b18c0",
+      "articleId": "17821a13",
+      "type": "step",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+          "id": "47219cdb",
+          "fixed": true,
+          "children": [
+            {
+              "text": "使用 Vuex Getters 复用本地数据获取逻辑"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "之前我们使用 Vuex 进行状态管理是通过 "
+                },
+                {
+                  "text": "this.$store.state",
+                  "code": true
+                },
+                {
+                  "text": " 的方式获取本地数据，而在这里我们使用 "
+                },
+                {
+                  "text": "Vuex Getters",
+                  "code": true
+                },
+                {
+                  "text": " 来复用本地数据的获取逻辑。"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "Vuex",
+                  "code": true
+                },
+                {
+                  "text": " 允许我们在 "
+                },
+                {
+                  "text": "store",
+                  "code": true
+                },
+                {
+                  "text": " 中定义 “getter”（可以认为是 "
+                },
+                {
+                  "text": "store",
+                  "code": true
+                },
+                {
+                  "text": " 的计算属性）。就像计算属性一样，"
+                },
+                {
+                  "text": "getter",
+                  "code": true
+                },
+                {
+                  "text": " 的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "Getter",
+                  "code": true
+                },
+                {
+                  "text": " 也是定义在 Vuex Store 的 "
+                },
+                {
+                  "text": "getter",
+                  "code": true
+                },
+                {
+                  "text": " 属性中的一系列方法，用于获取本地状态中的数据。我们可以通过两种方式访问 "
+                },
+                {
+                  "text": "getter",
+                  "code": true
+                },
+                {
+                  "text": "，一个是通过属性访问，另一个是通过方法访问："
+                }
+              ]
+            },
+            {
+              "type": "bulleted-list",
+              "children": [
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "属性访问",
+                      "bold": true
+                    },
+                    {
+                      "text": "的方式为 "
+                    },
+                    {
+                      "text": "this.$store.getter.allProducts",
+                      "code": true
+                    },
+                    {
+                      "text": "，对应的 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 如下："
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                }
+              ]
+            },
+            {
+              "type": "code-block",
+              "children": [
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "allProducts(state) {"
+                    }
+                  ]
+                },
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "    // 返回本地中的数据"
+                    }
+                  ]
+                },
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "    return state.products;"
+                    }
+                  ]
+                },
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "}"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "bulleted-list",
+              "children": [
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "方法访问",
+                      "bold": true
+                    },
+                    {
+                      "text": "的方式为 "
+                    },
+                    {
+                      "text": "this.$store.getter.productById(id)",
+                      "code": true
+                    },
+                    {
+                      "text": "，对应的 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 如下："
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                }
+              ]
+            },
+            {
+              "type": "code-block",
+              "children": [
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "productById: (state, getters) => id => {"
+                    }
+                  ]
+                },
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "      //通过传入的id参数进行一系列操作并返回本地数据"
+                    }
+                  ]
+                },
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "      return state.product;"
+                    }
+                  ]
+                },
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "  }"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "我们可以看到 "
+                },
+                {
+                  "text": "Getter",
+                  "code": true
+                },
+                {
+                  "text": " 可以接受两个参数："
+                },
+                {
+                  "text": "state",
+                  "code": true
+                },
+                {
+                  "text": " 和 "
+                },
+                {
+                  "text": "getters",
+                  "code": true
+                },
+                {
+                  "text": "，"
+                },
+                {
+                  "text": "state",
+                  "code": true
+                },
+                {
+                  "text": " 就表示本地数据源；我们可以通过第二个参数 "
+                },
+                {
+                  "text": "getters",
+                  "code": true
+                },
+                {
+                  "text": " 获取到不同的 "
+                },
+                {
+                  "text": "getter",
+                  "code": true
+                },
+                {
+                  "text": " 属性。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/store/index.js",
+          "display": true,
+          "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "定义 Vuex Getters"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "光说不练假把式，我们来手撸几个 getters。打开 "
+                    },
+                    {
+                      "text": "src/store/index.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，我们添加了一些需要用到的 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性、"
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性以及这一节的主角 —— "
+                    },
+                    {
+                      "text": "getters",
+                      "code": true
+                    },
+                    {
+                      "text": "。代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/store/index.js",
+              "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+              "hiddenLines": [
+                [
+                  0,
+                  30
+                ],
+                [
+                  58,
+                  63
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ],
+              "hideDiff": false
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "这里主要添加了三部分内容："
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": "在 actions 中添加了 productById 属性，当视图层通过指定 id 分发到类型为 PRODUCT_BY_ID 的 action 中，这里会进行异步操作从后端获取指定商品，并将该商品提交到对应类型的 mutation 中，就来到了下一步。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": "在 mutations 中添加了 PRODUCT_BY_ID 和 PRODUCT_BY_ID_SUCCESS 属性，响应指定类型提交的事件，将提交过来的商品保存到本地。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "text": "添加了 "
+                        },
+                        {
+                          "text": "getters",
+                          "code": true
+                        },
+                        {
+                          "text": "并在 "
+                        },
+                        {
+                          "text": "getters",
+                          "code": true
+                        },
+                        {
+                          "text": " 中添加了 "
+                        },
+                        {
+                          "text": "allProducts",
+                          "code": true
+                        },
+                        {
+                          "text": " 属性和 "
+                        },
+                        {
+                          "text": "productById",
+                          "code": true
+                        },
+                        {
+                          "text": " 方法，用于获取本地数据。在 "
+                        },
+                        {
+                          "text": "allProducts",
+                          "code": true
+                        },
+                        {
+                          "text": " 中获取本地中所有的商品；在 "
+                        },
+                        {
+                          "text": "productById",
+                          "code": true
+                        },
+                        {
+                          "text": " 通过传入的 id 查找本地商品中是否存在该商品，如果存在则返回该商品，如果不存在则返回空对象。"
+                        }
+                      ],
+                      "level": 0,
+                      "parent": "bulleted-list"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/admin/Products.vue",
+          "display": true,
+          "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "在后台 Products 组件中使用 Getters"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们先通过一个简单的例子演示如果使用 Vuex Getters。打开后台商品组件，"
+                    },
+                    {
+                      "text": "src/pages/admin/Products.vue",
+                      "code": true
+                    },
+                    {
+                      "text": "，我们通过属性访问的方式调用对应的 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性，从而获取本地商品，代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/admin/Products.vue",
+              "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+              "hiddenLines": [
+                [
+                  0,
+                  11
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们通过 "
+                    },
+                    {
+                      "text": "this.$store.getters.allProducts",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性访问的方式调用对应 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 中的 "
+                    },
+                    {
+                      "text": "allProducts",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性，并返回本地商品数组中的第一个商品。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/components/products/ProductDetail.vue",
+          "display": true,
+          "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "创建 ProductDetail 组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "接着开始实现商品详情组件 "
+                    },
+                    {
+                      "text": "src/components/products/ProductDetail.vue",
+                      "code": true
+                    },
+                    {
+                      "text": "，代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/components/products/ProductDetail.vue",
+              "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "该组件将父组件传入的 "
+                    },
+                    {
+                      "text": "product",
+                      "code": true
+                    },
+                    {
+                      "text": " 对象展示在了模板中，并复用了 "
+                    },
+                    {
+                      "text": "ProductButton",
+                      "code": true
+                    },
+                    {
+                      "text": " 组件。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/components/products/ProductItem.vue",
+          "display": true,
+          "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "在 ProductItem 组件中添加链接"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "有了商品详情，我们还需要进入详情的链接。再次进入 "
+                    },
+                    {
+                      "text": "src/components/products/ProductItem.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件中，我们对其进行了修改，将模板中的商品信息用 Vue 原生组件 "
+                    },
+                    {
+                      "text": "router-link",
+                      "code": true
+                    },
+                    {
+                      "text": " 包裹起来，实现商品信息可点击查看详情。代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/components/products/ProductItem.vue",
+              "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+              "hiddenLines": [
+                [
+                  18,
+                  29
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "该组件经过修改之后实现了点击商品的任何一条信息，都会触发路由跳转到商品详情页，并将该商品 id 通过动态路由的方式传递到详情页。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/components/products/ProductList.vue",
+          "display": true,
+          "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "在 ProductList 中使用 Getters"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "修改商品列表组件 "
+                    },
+                    {
+                      "text": "src/components/products/ProductList.vue",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，使用了 Vuex Getters 复用了本地数据获取逻辑，代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/components/products/ProductList.vue",
+              "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+              "hiddenLines": [
+                [
+                  0,
+                  23
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们在计算属性 "
+                    },
+                    {
+                      "text": "products",
+                      "code": true
+                    },
+                    {
+                      "text": " 中使用 "
+                    },
+                    {
+                      "text": "this.$store.getters.allProducts",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性访问的方式调用 "
+                    },
+                    {
+                      "text": "getters",
+                      "code": true
+                    },
+                    {
+                      "text": " 中的 "
+                    },
+                    {
+                      "text": "allProducts",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性，我们也知道在对应的 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 中获取到了本地中的 "
+                    },
+                    {
+                      "text": "products",
+                      "code": true
+                    },
+                    {
+                      "text": " 数组。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/pages/Detail.vue",
+          "display": true,
+          "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "创建 Detail 页面组件"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "实现了 ProductDetail 子组件之后，我们便可以搭建商品详情我页面组件 "
+                    },
+                    {
+                      "text": "src/pages/Detail.vue",
+                      "code": true
+                    },
+                    {
+                      "text": "，代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/pages/Detail.vue",
+              "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "该组件中定义了一个计算属性 "
+                    },
+                    {
+                      "text": "product",
+                      "code": true
+                    },
+                    {
+                      "text": "，用于返回本地状态中指定的商品。这里我们使用了 "
+                    },
+                    {
+                      "text": "this.$store.getters.productById(id)",
+                      "code": true
+                    },
+                    {
+                      "text": " 方法访问的方式获取本地中指定的商品，这里的 id 参数通过 "
+                    },
+                    {
+                      "text": "this.$route.params['id']",
+                      "code": true
+                    },
+                    {
+                      "text": " 从当前处于激活状态的路由对象中获取，并传入对应的 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，进而从本地中获取指定商品。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "在该组件刚被创建时判断当前本地中是否有该商品，如果没有则通过 "
+                    },
+                    {
+                      "text": "this.$store.dispatch",
+                      "code": true
+                    },
+                    {
+                      "text": " 的方式将包含当前商品 id 的对象作为载荷分发到类型为 "
+                    },
+                    {
+                      "text": "productById",
+                      "code": true
+                    },
+                    {
+                      "text": " 的 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，在 "
+                    },
+                    {
+                      "text": "action",
+                      "code": true
+                    },
+                    {
+                      "text": " 中进行异步操作从后端获取指定商品，然后提交到对应的 "
+                    },
+                    {
+                      "text": "mutation",
+                      "code": true
+                    },
+                    {
+                      "text": " 中进行本地状态修改，这已经使我们习惯的思路了。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "file": "vue-online-shop-frontend/src/router/index.js",
+          "display": true,
+          "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+          "type": "file",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "配置 Detail 页面的路由"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "最后我们打开路由配置 "
+                    },
+                    {
+                      "text": "src/router/index.js",
+                      "code": true
+                    },
+                    {
+                      "text": " 文件，导入了 "
+                    },
+                    {
+                      "text": "Detail",
+                      "code": true
+                    },
+                    {
+                      "text": " 组件，并添加了对应的路由参数，代码如下："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "vue-online-shop-frontend/src/router/index.js",
+              "commit": "ec62958cbfd4a22e8ff30d71f2b7724b3d11a092",
+              "hiddenLines": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  8,
+                  43
+                ]
+              ],
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "又到了验收的环节，运行项目，点击单个商品，可以进入到商品详情页面，并且数据是完全一致的："
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "heading-three",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "小结"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                },
+                {
+                  "text": "这一节中我们学会了如何使用 "
+                },
+                {
+                  "text": "Vuex Getters",
+                  "code": true
+                },
+                {
+                  "text": " 来复用本地数据的获取逻辑："
+                }
+              ]
+            },
+            {
+              "type": "bulleted-list",
+              "children": [
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们需要先在 "
+                    },
+                    {
+                      "text": "store",
+                      "code": true
+                    },
+                    {
+                      "text": " 实例中添加 "
+                    },
+                    {
+                      "text": "getters",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性，并在 "
+                    },
+                    {
+                      "text": "getters",
+                      "code": true
+                    },
+                    {
+                      "text": " 属性中定义不同的属性或者方法。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "在这些不同类型的 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": " 中，我们可以获取本地数据。"
+                    }
+                  ],
+                  "level": 0,
+                  "parent": "bulleted-list"
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": ""
+                    },
+                    {
+                      "text": "我们可以通过属性访问和方法访问的方式来调用我们的 "
+                    },
+                    {
+                      "text": "getter",
+                      "code": true
+                    },
+                    {
+                      "text": "。"
+                    },
+                    {
+                      "text": ""
                     }
                   ],
                   "level": 0,
