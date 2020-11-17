@@ -1,11 +1,13 @@
 <template>
   <div>
     <div class="product">
-      <p class="product_name">产品名称：{{product.name}}</p>
-      <p class="product_description">介绍：{{product.description}}</p>
-      <p class="product_price">价格：{{product.price}}</p>
-      <p class="product_manufacturer">生产厂商：{{product.manufacturer.name}}</p>
-      <img :src="product.image" alt="" class="product_image">
+      <router-link :to="'/detail/' + product._id" class="product-link">
+        <p class="product_name">产品名称：{{product.name}}</p>
+        <p class="product_description">介绍：{{product.description}}</p>
+        <p class="product_price">价格：{{product.price}}</p>
+        <p class="product_manufacturer">生产厂商：{{product.manufacturer.name}}</p>
+        <img :src="product.image" alt="" class="product_image">
+      </router-link>
       <product-button :product="product"></product-button>
     </div>
   </div>
@@ -24,5 +26,11 @@ export default {
 </script>
 
 <style>
-
+.product{
+  border-bottom: 1px solid black;
+}
+.product_image{
+  width: 100px;
+  height: 100px;
+}
 </style>
