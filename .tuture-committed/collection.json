@@ -5,15 +5,6 @@
   "created": "2020-10-21T07:02:45.986Z",
   "articles": [
     {
-      "id": "56dd11f8",
-      "name": "从零到部署：用 Vue 和 Express 实现迷你全栈电商应用",
-      "description": "",
-      "topics": [],
-      "categories": [],
-      "created": "2020-10-21T07:02:45.986Z",
-      "cover": ""
-    },
-    {
       "id": "8a528e68",
       "created": "2020-10-21T07:03:29.421Z",
       "name": "从零到部署：用 Vue 和 Express 实现迷你全栈电商应用（二）",
@@ -46,7 +37,7 @@
       "topics": [],
       "categories": [],
       "cover": "",
-      "description": "前面五篇教程我们已经基本实现了迷你全栈电商应用的界面展示以及功能逻辑，相信大家在这个过程中都收获颇丰，并且迈向了全栈工程师的第一步。但是我们却并不满足于此，我们还需要对我们的项目代码进行优化，使得我们的代码可读性更高，也更好维护。相信细心的你们已经感觉到了项目中的 store 实例实在是过于臃肿，因此，本篇教程就是带大家一起学习如何抽出 Getters 、 Mutations 和 Actions 逻辑实现 store 的 “减重” 以及如何干掉 mutation-types 硬编码。"
+      "description": "前面四篇教程我们已经基本实现了迷你全栈电商应用的界面展示以及功能逻辑，相信大家在这个过程中都收获颇丰，并且迈向了全栈工程师的第一步。但是我们却并不满足于此，我们还需要对我们的项目代码进行优化，使得我们的代码可读性更高，也更好维护。相信细心的你们已经感觉到了项目中的 store 实例实在是过于臃肿，因此，本篇教程就是带大家一起学习如何抽出 Getters 、 Mutations 和 Actions 逻辑实现 store 的 “减重” 以及如何干掉 mutation-types 硬编码。"
     }
   ],
   "steps": [
@@ -9565,7 +9556,7 @@
                 },
                 {
                   "type": "note",
-                  "level": "default",
+                  "level": "primary",
                   "children": [
                     {
                       "type": "paragraph",
