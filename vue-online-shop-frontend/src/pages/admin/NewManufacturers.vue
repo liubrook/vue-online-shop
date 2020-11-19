@@ -4,14 +4,13 @@
 
 <script>
 import ManufacturerForm from '@/components/ManufacturerForm'
-import ManufacturerForm from '../../components/ManufacturerForm.vue'
 export default {
   components: {
     'manufacturer-form': ManufacturerForm
   },
-  computed: {
-    model() {
-      return {}
+  data() {
+    return {
+      model: {}
     }
   },
   methods: {

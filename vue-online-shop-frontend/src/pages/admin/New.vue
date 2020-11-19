@@ -7,6 +7,11 @@ export default {
   components: {
     'product-form': ProductForm
   },
+  data() {
+    return {
+      model: {manufacturer: {name: ''}}
+    }
+  },
   created() {
     if (this.manufacturers.length === 0) {
       this.$store.dispatch('allManufacturers')
@@ -15,9 +20,6 @@ export default {
   computed: {
     manufacturers() {
       return this.$store.getters.allManufacturers
-    },
-    model() {
-      return {}
     }
   },
   methods: {
