@@ -46,6 +46,8 @@ export default {
   },
   methods: {
     onSubmit() {
+      const manufacturer = this.manufacturers.find(item => item.name === this.modelData.manufacturer.name);
+      this.modelData.manufacturer = manufacturer;
       this.$emit('save-product', this.modelData)
     }
   }
