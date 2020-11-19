@@ -1,6 +1,7 @@
 <template>
   <div class="productInfo">
-    <el-form class="form" ref="form" label-width="180px">
+    <el-form class="form" ref="form" label-width="180px" v-loading="loading"
+    element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
       <el-form-item label="Name">
         <el-input v-model="modelData.name"></el-input>
       </el-form-item>
@@ -19,7 +20,7 @@
         <el-input type="textarea" v-model="modelData.description"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button v-if="isEditing" type="primary" @click="onSubmit">Update Product</el-button>
+        <el-button v-if="isEditing" type="primary" native-type="submit" @click="onSubmit">Update Product</el-button>
         <el-button v-else @click="onSubmit">Add Product</el-button>
       </el-form-item>
     </el-form>
@@ -36,12 +37,16 @@ export default {
   },
   created() {
     const product = this.model
-
     this.modelData = { ...product, manufacturer: { ...product.manufacturer } }
   },
   watch: {
     model(val, oldVal) {
       this.modelData = val
+    }
+  },
+  computed: {
+    loading() {
+      return this.$store.state.showLoader
     }
   },
   methods: {
