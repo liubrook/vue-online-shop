@@ -1,22 +1,22 @@
 <template>
   <div class="productInfo">
-    <el-form class="form" ref="form" :model="model" label-width="180px">
+    <el-form class="form" ref="form" label-width="180px">
       <el-form-item label="Name">
-        <el-input v-model="model.name"></el-input>
+        <el-input v-model="modelData.name"></el-input>
       </el-form-item>
       <el-form-item label="price">
-        <el-input v-model="model.price"></el-input>
+        <el-input v-model="modelData.price"></el-input>
       </el-form-item>
       <el-form-item label="Manufacturer">
-        <el-select v-model="model.manufacturer.name" clearable palceholder="请选择制造商">
+        <el-select v-model="modelData.manufacturer.name" clearable palceholder="请选择制造商">
           <el-option v-for="manufacturer in manufacturers" :key="manufacturer._id" :label="manufacturer.name" :value="manufacturer.name"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="Image">
-        <el-input v-model="model.image"></el-input>
+        <el-input v-model="modelData.image"></el-input>
       </el-form-item>
       <el-form-item label="Description">
-        <el-input type="textarea" v-model="model.description"></el-input>
+        <el-input type="textarea" v-model="modelData.description"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button v-if="isEditing" type="primary" @click="onSubmit">Update Product</el-button>
@@ -29,12 +29,24 @@
 <script>
 export default {
   props: ['model', 'manufacturers', 'isEditing'],
+  data() {
+    return {
+      modelData: { manufacturer: { name: '' } }
+    }
+  },
   created() {
-    console.log(this.model)
+    const product = this.model
+
+    this.modelData = { ...product, manufacturer: { ...product.manufacturer } }
+  },
+  watch: {
+    model(val, oldVal) {
+      this.modelData = val
+    }
   },
   methods: {
     onSubmit() {
-      this.$emit('save-product', this.model)
+      this.$emit('save-product', this.modelData)
     }
   }
 }

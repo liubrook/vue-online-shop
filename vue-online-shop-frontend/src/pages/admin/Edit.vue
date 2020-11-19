@@ -9,13 +9,8 @@
 <script>
 import ProductForm from '@/components/products/ProductForm'
 export default {
-  data() {
-    return {
-      model: {}
-    }
-  },
   created() {
-    const { name } = this.model
+    const { name = '' } = this.modelData || {}
     if (!name) {
       this.$store.dispatch('productById', {
         productId: this.$route.params['id']
@@ -25,13 +20,16 @@ export default {
     if (this.manufacturers.length === 0) {
       this.$store.dispatch('allManufacturers')
     }
-
-    const product = this.$store.getters.productById(this.$route.params['id'])
-    this.model =  { ...product, manufacturer: { ...product.manufacturer } }
   },
   computed: {
     manufacturers() {
       return this.$store.getters.allManufacturers
+    },
+    model() {
+      const product = this.$store.getters.productById(this.$route.params['id'])
+      const res =  { ...product, manufacturer: { ...product.manufacturer } }
+
+      return res
     }
   },
   methods: {
