@@ -67,6 +67,7 @@ export const productMutations = {
 
       return product
     })
+    state.product = newProduct
   },
   [ADD_PRODUCT](state) {
     state.showLoader = true
@@ -139,6 +140,7 @@ export const manufacturerMutations = {
 
       return manufacturer
     })
+    state.manufacturer = newManufacturer
   },
   [ADD_MANUFACTURER](state) {
     state.showLoader = true
