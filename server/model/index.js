@@ -7,14 +7,16 @@ const productSchema = Schema({
     id: ObjectId,
     name: String,
     image: String,
-    price: Number,
+    price: String,
     description: String,
+    user: String,
     manufacturer: { type: ObjectId, ref: 'Manufacturer' }
 });
 
 const manufacturerSchema = Schema({
     id: ObjectId,
-    name: String
+    name: String,
+    user: String
 });
 
 const Product = model('Product', productSchema);

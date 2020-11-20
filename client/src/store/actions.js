@@ -83,7 +83,12 @@ export const productActions = {
     commit(ADD_PRODUCT)
 
     const { product } = payload
-    axios.post(`${API_BASE}/products`, product).then(response => {
+    const _id = state.user._id
+    axios.post(`${API_BASE}/products`, {
+      ...product,
+      user: _id,
+      manufacturer: product.manufacturer._id
+    }).then(response => {
       commit(ADD_PRODUCT_SUCCESS, {
         product: response.data
       })
@@ -154,7 +159,11 @@ export const manufacturerActions = {
     commit(ADD_MANUFACTURER)
 
     const { manufacturer } = payload
-    axios.post(`${API_BASE}/manufacturers`, manufacturer).then(response => {
+    const _id = state.user._id
+    axios.post(`${API_BASE}/manufacturers`, {
+      ...Manufacturer,
+      user: _id
+    }).then(response => {
       commit(ADD_MANUFACTURER_SUCCESS, {
         manufacturer: response.data
       })
