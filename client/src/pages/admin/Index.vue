@@ -13,6 +13,14 @@
 import Header from "@/components/Header.vue"
 export default {
   name: "home",
+  beforeRouteEnter (to, from, next) {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      next('/user/login')
+    } else {
+      next()
+    }
+  },
   data() {
     return {
       msg: "Welcome to Your Vue.js App",

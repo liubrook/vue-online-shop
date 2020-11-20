@@ -18,6 +18,14 @@ import Header from "@/components/Header.vue"
       "app-header": Header
     },
     name: 'home',
+    beforeRouteEnter (to, from, next) {
+      const token = localStorage.getItem('token')
+      if (!token) {
+        next('/user/login')
+      } else {
+        next()
+      }
+    },
     data () {
       return {
         msg: 'Welcome to the Cart Page',

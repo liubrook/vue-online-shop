@@ -10,7 +10,6 @@ export default {
     }
   },
   mounted() {
-    console.log('进来了')
     const appId = '5fb76588272b29c9e3913506'
     const userPoolId = '5fb76587b699513f3171b0f1'
     const domain = 'https://vue-online-shop-test.authing.cn'
@@ -21,16 +20,14 @@ export default {
       mountId: 'login-form',
       hideClose: true
     })
-    console.log('123', form)
     const that = this
 
     form.on('authenticated', userInfo => {
-      console.log('userInfo', userInfo)
       that.$store.commit('SET_USER', userInfo)
       localStorage.setItem('token', JSON.stringify(userInfo.token))
       localStorage.setItem('vue-online-shop-userInfo', JSON.stringify(userInfo))
 
-      that.$route.push('/')
+      that.$router.push('/')
     })
   },
 }
