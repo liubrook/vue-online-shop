@@ -1,7 +1,8 @@
 
 <template>
   <div>
-    <div class="title">
+    <app-header :activeIndex="activeIndex"></app-header>
+    <div class="container">
       <h1>{{msg}}</h1>
     </div>
      <product-item :products="cart"></product-item>
@@ -10,26 +11,22 @@
 
 <script>
 import ProductItem from '../components/products/ProductItem.vue'
+import Header from "@/components/Header.vue"
   export default {
-  components: {
-    'product-item': ProductItem
-  },
+    components: {
+      'product-item': ProductItem,
+      "app-header": Header
+    },
     name: 'home',
     data () {
       return {
-        msg: 'Welcome to the Cart Page'
+        msg: 'Welcome to the Cart Page',
+        activeIndex: "3"
       }
     },
     computed: {
       cart() {
         return this.$store.state.cart
-      }
-    },
-    methods: {
-      removeFromCart(productId) {
-        this.$store.commit('REMOVE_FROM_CART', {
-          productId
-        })
       }
     }
   }

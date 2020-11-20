@@ -5,6 +5,7 @@
         <h1 class="user-title">
           <router-link to="/" tag="div">登录/注册</router-link>
         </h1>
+        <router-view></router-view>
       </div>
     </div>
   </div>

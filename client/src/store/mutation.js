@@ -20,9 +20,21 @@ import {
   UPDATE_MANUFACTURER,
   UPDATE_MANUFACTURER_SUCCESS,
   REMOVE_MANUFACTURER,
-  REMOVE_MANUFACTURER_SUCCESS
+  REMOVE_MANUFACTURER_SUCCESS,
+  SET_USER,
+  UPDATE_USER,
+  LOGOUT
 } from './mutation-types'
 import { Message } from 'element-ui'
+
+export const userMutations = {
+  [SET_USER](state, payload) {
+    state.user = payload
+  },
+  [LOGOUT](state) {
+    state.user = {}
+  }
+}
 
 export const productMutations = {
   [ALL_PRODUCTS](state) {

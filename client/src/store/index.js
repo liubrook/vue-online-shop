@@ -1,9 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios'
 
 import { productGetters, manufacturerGetters } from './getters';
-import { productMutations, cartMutations, manufacturerMutations } from './mutation';
+import { productMutations, cartMutations, manufacturerMutations, userMutations } from './mutation';
 
 import { productActions, manufacturerActions } from './actions'
 
@@ -16,12 +15,14 @@ export default new Vuex.Store({
     showLoader: false,
     product: {},
     products: [],
-    manufacturers: []
+    manufacturers: [],
+    user: {}
   },
   mutations: {
     ...productMutations,
     ...cartMutations,
-    ...manufacturerMutations
+    ...manufacturerMutations,
+    ...userMutations
   },
   getters: {
     ...productGetters,
