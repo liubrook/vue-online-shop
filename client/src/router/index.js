@@ -11,7 +11,10 @@ import Products from '@/pages/admin/Products';
 import Edit from '@/pages/admin/Edit';
 import Manufacturers from '@/pages/admin/Manufacturers';
 import NewManufacturers from '@/pages/admin/NewManufacturers';
-import EditManufacturers from '@/pages/admin/EditManufacturers'
+import EditManufacturers from '@/pages/admin/EditManufacturers';
+import UserIndex from '@/pages/user/Index';
+import Login from '@/pages/user/Login';
+import Setting from '@/pages/user/Setting';
 
 Vue.use(Router)
 
@@ -68,6 +71,23 @@ export default new Router({
       path: '/detail/:id',
       name: 'Detail',
       component: Detail
+    },
+    {
+      path: '/user',
+      name: 'User',
+      component: UserIndex,
+      children: [
+        {
+          path: 'login',
+          name: 'Login',
+          component: Login
+        },
+        {
+          path: 'settings',
+          name: 'Settings',
+          component: Setting
+        }
+      ]
     }
   ]
 })
