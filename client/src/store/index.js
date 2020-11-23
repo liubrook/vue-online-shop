@@ -16,7 +16,8 @@ export default new Vuex.Store({
     product: {},
     products: [],
     manufacturers: [],
-    user: {}
+    user: {},
+    userPoolId: '5fb76587b699513f3171b0f1'
   },
   mutations: {
     ...productMutations,

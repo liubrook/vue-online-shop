@@ -10,6 +10,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@authing/vue-ui-components": "^2.0.8",
+    "authing-js-sdk": "^4.6.2",
     "axios": "^0.21.0",
     "element-ui": "^2.14.1",
     "vee-validate": "^3.4.5",

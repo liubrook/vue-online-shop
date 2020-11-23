@@ -39,7 +39,7 @@
         <el-avatar class="el-dropdown-link" :src="avatar"></el-avatar>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
-            <a href="https://vue-online-shop-test.authing.cn/login/profile">账户设置</a>
+           <router-link to="/user/settings" tag="div">账户设置</router-link>
           </el-dropdown-item>
           <el-dropdown-item>
             <div @click="handleLogout">退出登录</div>
@@ -85,6 +85,7 @@
 </style>
 
 <script>
+import { AuthenticationClient } from 'authing-js-sdk'
 export default {
   props: ["activeIndex"],
   data() {
@@ -103,10 +104,32 @@ export default {
     }
   },
   methods: {
-    handleLogout() {
+    async handleLogout() {
+      const userPoolId = this.$store.state.userPoolId
+
+      const token = JSON.parse(localStorage.getItem('token'))
+      const userId = JSON.parse(localStorage.getItem('vue-online-shop-userInfo'))._id
+      const authing = new AuthenticationClient({
+        userPoolId
+      })
+
+      try {
+        const res = await authing.checkLoginStatus(token)
+
+        await authing.logout(userId)
+
+        this.$message({
+          message: '成功登出',
+          type: 'success'
+        })
+      } catch (err) {
+        console.log('err', err)
+      }
+
       localStorage.removeItem("token");
       localStorage.removeItem("vue-online-shop-userInfo");
       this.$store.commit("LOGOUT");
+      this.$router.push('/user/login')
     }
   }
 };
